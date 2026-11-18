@@ -1,0 +1,174 @@
+[
+ {
+  "file": "edit-pencil.svg",
+  "used_for": "Admin: edit product row"
+ },
+ {
+  "file": "arrow-right.svg",
+  "used_for": "CTA arrows: Explore Collections, Explore Now, View all"
+ },
+ {
+  "file": "heart-outline.svg",
+  "used_for": "Save / wishlist (not saved), header Saved designs"
+ },
+ {
+  "file": "heart-filled.svg",
+  "used_for": "Wishlist heart when saved"
+ },
+ {
+  "file": "chevron-down.svg",
+  "used_for": "Dropdown carets: Jewellery menu, custom dropdowns, filter groups (closed), move-down"
+ },
+ {
+  "file": "chevron-up.svg",
+  "used_for": "Filter group open, admin move-up"
+ },
+ {
+  "file": "chevron-right.svg",
+  "used_for": "Admin dashboard list rows"
+ },
+ {
+  "file": "arrow-left.svg",
+  "used_for": "Back buttons: Back to Website, back to products/orders"
+ },
+ {
+  "file": "image.svg",
+  "used_for": "Photo placeholders, Images section, upload slots"
+ },
+ {
+  "file": "close-x.svg",
+  "used_for": "Close buttons for modals, chips, remove photo"
+ },
+ {
+  "file": "close-x-thin.svg",
+  "used_for": "Admin chip remove"
+ },
+ {
+  "file": "trash.svg",
+  "used_for": "Admin delete row"
+ },
+ {
+  "file": "user.svg",
+  "used_for": "Header account button"
+ },
+ {
+  "file": "lotus-logo.svg",
+  "used_for": "GNS Jewellers logo mark (header, footer, admin sidebar, login)"
+ },
+ {
+  "file": "info-circle.svg",
+  "used_for": "Approximate-price notes"
+ },
+ {
+  "file": "diamond-outline.svg",
+  "used_for": "Trust \"Authentic Jewellery\", Curated Designs, gold-rate card, product thumbs"
+ },
+ {
+  "file": "diamond-faceted.svg",
+  "used_for": "Product photo placeholders, category tiles"
+ },
+ {
+  "file": "shield-check.svg",
+  "used_for": "Certified Purity / Hallmarked"
+ },
+ {
+  "file": "shield.svg",
+  "used_for": "Hallmarked perk on product page"
+ },
+ {
+  "file": "check.svg",
+  "used_for": "Selected option tick in custom dropdowns"
+ },
+ {
+  "file": "google-g-placeholder.svg",
+  "used_for": "Sign in with Google buttons (placeholder mark \u2014 use official Google logo in production)"
+ },
+ {
+  "file": "custom-tools.svg",
+  "used_for": "Custom Creations / workshop placeholder"
+ },
+ {
+  "file": "message-square.svg",
+  "used_for": "Enquire Now, Quick Enquiry, admin Enquiries"
+ },
+ {
+  "file": "whatsapp-bubble.svg",
+  "used_for": "Enquire on WhatsApp"
+ },
+ {
+  "file": "grid-view.svg",
+  "used_for": "Catalogue grid view toggle"
+ },
+ {
+  "file": "list-view.svg",
+  "used_for": "Catalogue list view toggle"
+ },
+ {
+  "file": "menu-hamburger.svg",
+  "used_for": "Mobile menu buttons (site + admin)"
+ },
+ {
+  "file": "headset.svg",
+  "used_for": "Personal Assistance highlight"
+ },
+ {
+  "file": "check-circle.svg",
+  "used_for": "Quality Assured (gold); WhatsApp opened confirmation (green #1F7A4D)"
+ },
+ {
+  "file": "search.svg",
+  "used_for": "Header search, mobile search"
+ },
+ {
+  "file": "plus.svg",
+  "used_for": "Admin Add photo"
+ },
+ {
+  "file": "admin-dashboard.svg",
+  "used_for": "Admin sidebar / stats icon: dashboard"
+ },
+ {
+  "file": "admin-products.svg",
+  "used_for": "Admin sidebar / stats icon: products"
+ },
+ {
+  "file": "admin-extract.svg",
+  "used_for": "Admin sidebar / stats icon: extract"
+ },
+ {
+  "file": "admin-taxonomy.svg",
+  "used_for": "Admin sidebar / stats icon: taxonomy"
+ },
+ {
+  "file": "admin-rates.svg",
+  "used_for": "Admin sidebar / stats icon: rates"
+ },
+ {
+  "file": "admin-enquiries.svg",
+  "used_for": "Admin sidebar / stats icon: enquiries"
+ },
+ {
+  "file": "admin-orders.svg",
+  "used_for": "Admin sidebar / stats icon: orders"
+ },
+ {
+  "file": "admin-analytics.svg",
+  "used_for": "Admin sidebar / stats icon: analytics"
+ },
+ {
+  "file": "admin-admins.svg",
+  "used_for": "Admin sidebar / stats icon: admins"
+ },
+ {
+  "file": "admin-content.svg",
+  "used_for": "Admin sidebar / stats icon: content"
+ },
+ {
+  "file": "admin-images.svg",
+  "used_for": "Admin sidebar / stats icon: images"
+ },
+ {
+  "file": "admin-eye.svg",
+  "used_for": "Admin dashboard: Product Views stat"
+ }
+]

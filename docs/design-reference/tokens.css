@@ -1,0 +1,67 @@
+/*
+ * GNS Jewellers — design tokens (extracted from the final prototype CSS).
+ * The prototype hard-codes these values; this file names them so the production
+ * build can use one source of truth. Values are exact.
+ */
+:root {
+  /* ---- Brand colours ---- */
+  --gns-burgundy:        #540404; /* primary: buttons, links, active states, selected options */
+  --gns-wine:            #3F0D0C; /* headings, footer, admin sidebar, hover of primary */
+  --gns-ivory:           #FAF6EF; /* customer page background */
+  --gns-champagne:       #F3EBDD; /* hero background, secondary surfaces, rate bar */
+  --gns-beige:           #E0D9C6;
+  --gns-dusty-rose:      #9E7972; /* hover borders, "Everyday Elegance" banner */
+  --gns-antique-gold:    #A87C3A; /* price-note accent edge */
+  --gns-gold-text:       #7A5A22; /* eyebrows, gold icons (AA-contrast gold) */
+  --gns-espresso:        #2B1B17; /* body text */
+  --gns-muted:           #6B5550; /* secondary text */
+  --gns-line:            #E4D9C7; /* borders / dividers */
+  --gns-card:            #FFFDF9; /* cards, panels, header, dropdown panels */
+  --gns-admin-bg:        #F6F1E9; /* admin page background */
+  --gns-rose-tint:       #F3E6E2; /* hover tint, chips, active nav item (admin) */
+  --gns-rose-tint-2:     #FBF1EE; /* selected pills / options */
+  --gns-price-total-bg:  #F6E9E5; /* estimated-price rows */
+  --gns-note-bg:         #F6EEE3; /* mobile price note */
+  --gns-whatsapp:        #1F7A4D; /* WhatsApp buttons */
+  --gns-whatsapp-hover:  #17603C;
+  --gns-error:           #A01E1E;
+  --gns-danger:          #9B1C1C;
+  --gns-placeholder-bg:  #FFF1D6; /* "PLACEHOLDER" tags */
+  --gns-placeholder-ink: #7A4A00;
+  --gns-placeholder-bd:  #C99A4A;
+  /* Collection banner colours */
+  --gns-col-bridal:       #540404;
+  --gns-col-everyday:     #9E7972;
+  --gns-col-heritage:     #3F0D0C;
+  --gns-col-contemporary: #7B5B52;
+  /* Image placeholder tints (t1–t5) */
+  --gns-tint-1: #F1E6D6; --gns-tint-2: #EFE3E0; --gns-tint-3: #EDE6D8; --gns-tint-4: #F4ECE2; --gns-tint-5: #E9DFD6;
+  /* Status badges (admin) */
+  --gns-ok-bg: #E3F1E7;   --gns-ok-ink: #1D5B33;
+  --gns-new-bg: #FDE9D7;  --gns-new-ink: #8A3D05;
+  --gns-prog-bg: #E5EDF8; --gns-prog-ink: #1F4B85;
+  --gns-draft-bg: #EEE9E1; --gns-draft-ink: #5C4D45;
+  --gns-cancel-bg: #FCE4E4; --gns-cancel-ink: #8E1B1B;
+
+  /* ---- Typography ---- */
+  --gns-font-display: 'Cormorant Garamond', Georgia, serif;   /* weights 500, 600, 700 */
+  --gns-font-body:    'DM Sans', system-ui, sans-serif;        /* weights 400, 500, 600, 700 */
+  --gns-hero:   clamp(44px, 6vw, 76px);  /* home hero h1 (mobile artboard: 44px) */
+  --gns-h-page: clamp(34px, 4vw, 48px);  /* page titles (mobile: 32px) */
+  --gns-h-sec:  clamp(30px, 3.4vw, 40px);/* section titles (mobile: 28px) */
+  --gns-body: 15px;          /* customer body; admin body 14.5px */
+  --gns-small: 13px;
+  --gns-eyebrow: 12px;       /* uppercase, letter-spacing .28em */
+  --gns-line-height: 1.55;
+
+  /* ---- Shape / spacing ---- */
+  --gns-radius-btn: 4px;     /* customer buttons (admin 5px) */
+  --gns-radius-card: 6px;    /* customer cards (admin 8px) */
+  --gns-radius-pill: 22px;   /* custom dropdown triggers, select boxes */
+  --gns-radius-panel: 10px;  /* dropdown & account panels (custom list panel 12px) */
+  --gns-tap: 44px;           /* minimum touch target */
+  --gns-container: 1240px;   /* .wrap max-width; padding 32px desktop / 18px mobile */
+  --gns-header-h: 68px;      /* desktop sticky header (mobile 64px) */
+  --gns-shadow-panel: 0 18px 40px rgba(63, 13, 12, .16);
+  --gns-shadow-modal: 0 30px 70px rgba(0, 0, 0, .3);
+}
