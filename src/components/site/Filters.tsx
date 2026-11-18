@@ -1,6 +1,6 @@
 "use client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useId, useState, useTransition } from "react";
 import { Icon } from "@/components/ui/Icon";
 
 export type FilterGroup = { key: string; label: string; options: { value: string; label: string; count: number }[]; open?: boolean };
@@ -12,6 +12,7 @@ function readSelection(sp: URLSearchParams, groups: FilterGroup[]) {
 }
 
 function FilterGroups({ groups, sel, onToggle }: { groups: FilterGroup[]; sel: Record<string, string[]>; onToggle: (k: string, v: string) => void }) {
+  const uid = useId();
   const [open, setOpen] = useState<Record<string, boolean>>(() => Object.fromEntries(groups.map((g) => [g.key, g.open ?? sel[g.key]?.length > 0])));
   return (
     <>
@@ -25,7 +26,7 @@ function FilterGroups({ groups, sel, onToggle }: { groups: FilterGroup[]; sel: R
             g.options.length ? (
               <ul className="mt-3 space-y-1">
                 {g.options.map((o) => {
-                  const id = `f-${g.key}-${o.value}`;
+                  const id = `${uid}-${g.key}-${o.value}`;
                   return (
                     <li key={o.value}>
                       <label htmlFor={id} className="flex min-h-9 cursor-pointer items-center gap-3 text-[15px]">
@@ -65,13 +66,19 @@ export function FilterSidebar({ groups }: { groups: FilterGroup[] }) {
   const pathname = usePathname();
   const router = useRouter();
   const [pending, start] = useTransition();
-  const sel = readSelection(new URLSearchParams(sp.toString()), groups);
+  const spKey = sp.toString();
+  // Optimistic selection: ticks immediately, then re-syncs from the URL once navigation lands.
+  const [optimistic, setOptimistic] = useState<{ key: string; sel: Record<string, string[]> } | null>(null);
+  const sel = optimistic && optimistic.key === spKey ? optimistic.sel : readSelection(new URLSearchParams(spKey), groups);
+  const go = (nextSel: Record<string, string[]>) => {
+    setOptimistic({ key: spKey, sel: nextSel });
+    start(() => router.push(hrefWith(pathname, new URLSearchParams(spKey), nextSel, groups), { scroll: false }));
+  };
   const toggle = (k: string, v: string) => {
     const cur = sel[k] ?? [];
-    const nextSel = { ...sel, [k]: cur.includes(v) ? cur.filter((x) => x !== v) : [...cur, v] };
-    start(() => router.push(hrefWith(pathname, new URLSearchParams(sp.toString()), nextSel, groups), { scroll: false }));
+    go({ ...sel, [k]: cur.includes(v) ? cur.filter((x) => x !== v) : [...cur, v] });
   };
-  const clear = () => start(() => router.push(hrefWith(pathname, new URLSearchParams(sp.toString()), {}, groups), { scroll: false }));
+  const clear = () => go({});
   return (
     <aside className="card hidden self-start p-5 lg:block" aria-label="Filters" aria-busy={pending}>
       <div className="flex items-center justify-between border-b border-line pb-4">
