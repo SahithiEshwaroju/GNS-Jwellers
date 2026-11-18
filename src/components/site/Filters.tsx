@@ -91,9 +91,6 @@ export function FilterSheetButton({ groups }: { groups: FilterGroup[] }) {
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState<Record<string, string[]>>({});
   useEffect(() => {
-    if (open) setDraft(readSelection(new URLSearchParams(sp.toString()), groups));
-  }, [open, sp, groups]);
-  useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     document.addEventListener("keydown", onKey);
@@ -106,7 +103,7 @@ export function FilterSheetButton({ groups }: { groups: FilterGroup[] }) {
   const active = Object.values(readSelection(new URLSearchParams(sp.toString()), groups)).flat().length;
   return (
     <>
-      <button type="button" className="btn btn-outline btn-sm w-full lg:hidden" onClick={() => setOpen(true)} aria-haspopup="dialog">
+      <button type="button" className="btn btn-outline btn-sm w-full lg:hidden" onClick={() => { setDraft(readSelection(new URLSearchParams(sp.toString()), groups)); setOpen(true); }} aria-haspopup="dialog">
         Filters{active ? ` (${active})` : ""}
       </button>
       {open ? (

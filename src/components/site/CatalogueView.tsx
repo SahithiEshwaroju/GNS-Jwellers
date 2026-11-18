@@ -16,7 +16,10 @@ export function CatalogueView({
   const qs = (patch: Record<string, string | null>) => {
     const p = new URLSearchParams();
     for (const [k, v] of Object.entries(searchParams)) if (typeof v === "string") p.set(k, v);
-    for (const [k, v] of Object.entries(patch)) (v === null ? p.delete(k) : p.set(k, v));
+    for (const [k, v] of Object.entries(patch)) {
+      if (v === null) p.delete(k);
+      else p.set(k, v);
+    }
     const s = p.toString();
     return s ? `${basePath}?${s}` : basePath;
   };
