@@ -2,7 +2,7 @@
 
 - **Project:** GNS Jewellers — catalogue, enquiry and admin web app
 - **Supabase project:** `gns-jewellers` (ref `trikbstrswhdeucxupyc`, ap-south-1)
-- **Current phase:** Phase 1 — Backend (database done; R2/AI modules next)
+- **Current phase:** Phase 2 — Frontend (backend verified)
 - **Last verified checkpoint:** 2026-11-18 — migrations 0100–0600 applied; pricing parity on design figures; anon denied enquiries/admin RPC; admin test login + `is_admin()` true.
 
 ## Completed
