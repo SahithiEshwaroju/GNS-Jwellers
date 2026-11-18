@@ -1,26 +1,197 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* GNS Jewellers design tokens — values from docs/design-reference/tokens.css (exact). */
+@theme {
+  --color-burgundy: #540404;
+  --color-wine: #3f0d0c;
+  --color-ivory: #faf6ef;
+  --color-champagne: #f3ebdd;
+  --color-beige: #e0d9c6;
+  --color-dusty-rose: #9e7972;
+  --color-antique-gold: #a87c3a;
+  --color-gold-text: #7a5a22;
+  --color-espresso: #2b1b17;
+  --color-muted: #6b5550;
+  --color-line: #e4d9c7;
+  --color-card: #fffdf9;
+  --color-admin-bg: #f6f1e9;
+  --color-rose-tint: #f3e6e2;
+  --color-rose-tint-2: #fbf1ee;
+  --color-price-bg: #f6e9e5;
+  --color-note-bg: #f6eee3;
+  --color-whatsapp: #1f7a4d;
+  --color-whatsapp-hover: #17603c;
+  --color-error: #a01e1e;
+  --color-danger: #9b1c1c;
+  --color-tint-1: #f1e6d6;
+  --color-tint-2: #efe3e0;
+  --color-tint-3: #ede6d8;
+  --color-tint-4: #f4ece2;
+  --color-tint-5: #e9dfd6;
+  --color-ok-bg: #e3f1e7;
+  --color-ok-ink: #1d5b33;
+  --color-new-bg: #fde9d7;
+  --color-new-ink: #8a3d05;
+  --color-prog-bg: #e5edf8;
+  --color-prog-ink: #1f4b85;
+  --color-draft-bg: #eee9e1;
+  --color-draft-ink: #5c4d45;
+  --color-cancel-bg: #fce4e4;
+  --color-cancel-ink: #8e1b1b;
+  --color-sample-bg: #fff1d6;
+  --color-sample-ink: #7a4a00;
+  --color-sample-bd: #c99a4a;
+
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+
+  --shadow-panel: 0 18px 40px rgba(63, 13, 12, 0.16);
+  --shadow-modal: 0 30px 70px rgba(0, 0, 0, 0.3);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--color-ivory);
+    color: var(--color-espresso);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+    color: var(--color-wine);
+    font-weight: 700;
+    line-height: 1.12;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-burgundy);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: var(--color-rose-tint);
+  }
+  [hidden] {
+    display: none !important;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding-inline: 18px;
+  }
+  @media (min-width: 768px) {
+    .wrap { padding-inline: 32px; }
+  }
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-gold-text);
+    font-weight: 600;
+  }
+  .h-page { font-size: clamp(32px, 4vw, 48px); }
+  .h-sec { font-size: clamp(28px, 3.4vw, 40px); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 20px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 15px;
+    border: 1px solid transparent;
+    transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+  .btn-sm { min-height: 36px; padding: 0 14px; font-size: 14px; }
+  .btn-primary { background: var(--color-burgundy); color: #fff; }
+  .btn-primary:hover:not(:disabled) { background: var(--color-wine); }
+  .btn-outline { background: transparent; color: var(--color-burgundy); border-color: var(--color-burgundy); }
+  .btn-outline:hover:not(:disabled) { background: var(--color-rose-tint-2); }
+  .btn-light { background: #fff; color: var(--color-burgundy); }
+  .btn-light:hover:not(:disabled) { background: var(--color-champagne); }
+  .btn-wa { background: var(--color-whatsapp); color: #fff; }
+  .btn-wa:hover:not(:disabled) { background: var(--color-whatsapp-hover); }
+  .btn-ghost { background: transparent; color: var(--color-burgundy); padding-inline: 8px; }
+  .btn-ghost:hover:not(:disabled) { text-decoration: underline; }
+  .btn-danger { background: transparent; color: var(--color-danger); border-color: #e5b9b9; }
+  .btn-danger:hover:not(:disabled) { background: var(--color-cancel-bg); }
+
+  .input {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 12px;
+    background: #fff;
+    border: 1px solid var(--color-line);
+    border-radius: 4px;
+    color: var(--color-espresso);
+    font-size: 15px;
+  }
+  .input::placeholder { color: #9a8a85; }
+  .input:focus { outline: none; border-color: var(--color-burgundy); box-shadow: 0 0 0 2px var(--color-rose-tint); }
+  .input[aria-invalid="true"] { border-color: var(--color-error); }
+  textarea.input { min-height: 96px; resize: vertical; }
+  select.input { appearance: auto; }
+  .label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 6px; color: var(--color-espresso); }
+  .hint { font-size: 12.5px; color: var(--color-muted); margin-top: 4px; }
+  .err { font-size: 13px; color: var(--color-error); margin-top: 4px; }
+
+  .card { background: var(--color-card); border: 1px solid var(--color-line); border-radius: 6px; }
+  .admin-card { background: var(--color-card); border: 1px solid var(--color-line); border-radius: 8px; }
+
+  .pill {
+    display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 18px;
+    border-radius: 22px; border: 1px solid var(--color-line); background: #fff; font-size: 14.5px; cursor: pointer;
+  }
+  .pill[aria-pressed="true"], .pill[aria-checked="true"] {
+    background: var(--color-rose-tint-2); border-color: var(--color-burgundy); color: var(--color-burgundy); font-weight: 600;
+  }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px;
+    background: var(--color-rose-tint); font-size: 13.5px; color: var(--color-espresso);
+  }
+  .badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+  .badge-ok { background: var(--color-ok-bg); color: var(--color-ok-ink); }
+  .badge-new { background: var(--color-new-bg); color: var(--color-new-ink); }
+  .badge-prog { background: var(--color-prog-bg); color: var(--color-prog-ink); }
+  .badge-draft { background: var(--color-draft-bg); color: var(--color-draft-ink); }
+  .badge-cancel { background: var(--color-cancel-bg); color: var(--color-cancel-ink); }
+  .badge-rose { background: var(--color-rose-tint); color: var(--color-burgundy); }
+  .badge-sample { background: var(--color-sample-bg); color: var(--color-sample-ink); border: 1px dashed var(--color-sample-bd); }
+
+  .section-title {
+    display: flex; align-items: center; justify-content: center; gap: 24px; text-align: center;
+  }
+  .section-title::before, .section-title::after {
+    content: ""; height: 1px; flex: 0 1 240px; background: #ead7d2;
+  }
+  @media (max-width: 640px) {
+    .section-title::before, .section-title::after { display: none; }
+  }
+
+  .table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  .table th {
+    text-align: left; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted);
+    font-weight: 600; padding: 12px 14px; background: #fbf6ef; border-bottom: 1px solid var(--color-line);
+  }
+  .table td { padding: 14px; border-bottom: 1px solid #efe6d8; vertical-align: middle; }
+  .table tr:last-child td { border-bottom: 0; }
+
+  .skeleton { background: linear-gradient(90deg, #f1e8db 25%, #f7f0e6 50%, #f1e8db 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 6px; }
+  @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+  @media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }
+
+  .sr-only-focusable:not(:focus) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 }
