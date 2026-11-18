@@ -25,7 +25,7 @@ async function generate(system: string, parts: Part[], opts: { json?: boolean; s
         ...(opts.schema ? { responseSchema: opts.schema } : {}),
       },
     }),
-    signal: AbortSignal.timeout(30_000),
+    signal: AbortSignal.timeout(20_000), // fits Netlify function limits (26 s max)
   });
   if (!res.ok) throw new Error(`Gemini HTTP ${res.status}`);
   const body = (await res.json()) as { candidates?: { content?: { parts?: { text?: string }[] } }[] };

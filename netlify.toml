@@ -1,0 +1,11 @@
+# Netlify build settings for GNS Jewellers (Next.js 16, Node runtime).
+# Environment variables are set in the Netlify UI — see DEPLOYMENT.md. Never commit secrets here.
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

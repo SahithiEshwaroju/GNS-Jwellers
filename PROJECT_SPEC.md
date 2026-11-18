@@ -102,7 +102,7 @@ See `FEATURE_MATRIX.md` (F‑01…F‑30) — the source of truth for completene
 | BR-07 | Order number `GNS-<4‑digit sequence>` generated only on confirmation; unique; never reused. Order date ≤ expected delivery date. Customer name and mobile required; at least one product line. |
 | BR-08 | AI must use only the customer's submitted questions and the admin's answers; it must not invent prices, availability, charges or timelines; admin approval required before WhatsApp opens; nothing is sent automatically. |
 | BR-09 | AI never creates or substitutes product photographs. Extraction produces text only; owner attaches a real photo. |
-| BR-10 | Categories/collections/tags in use by products cannot be deleted (owner must reassign first); subcategories in use cannot be deleted. |
+| BR-10 | Categories and subcategories in use by products cannot be deleted (owner must reassign first). Deleting a collection detaches its products; deleting a tag removes it from products. |
 | BR-11 | An admin cannot remove themself; at least one admin must remain. |
 | BR-12 | Saving designs requires sign‑in; saved designs are private to the customer. |
 | BR-13 | Placeholder content (unset Site Content) shows neutral placeholders on the public site — never invented claims. |
