@@ -15,6 +15,7 @@ Digital jewellery catalogue and WhatsApp enquiry platform for GNS Jewellers, wit
 | [TEST_REPORT.md](TEST_REPORT.md) | What was tested and the results |
 | [DEPLOYMENT.md](DEPLOYMENT.md) | Netlify / Supabase / R2 / Google / Gemini setup |
 | [HANDOFF.md](HANDOFF.md) | Final status and next steps |
+| [docs/phase-handoffs/](docs/phase-handoffs/README.md) | Phase-by-phase handoff reports |
 | [DECISIONS.md](DECISIONS.md), [PROJECT_STATE.md](PROJECT_STATE.md), [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) | Decision log and progress |
 
 ## Stack
