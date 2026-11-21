@@ -10,7 +10,8 @@ test.describe("Access control", () => {
   test("a signed-in non-admin sees no admin data", async ({ page, context, baseURL }) => {
     await loginAs(context, "OTHER", baseURL!);
     await page.goto("/admin/enquiries");
-    await expect(page.getByRole("heading", { name: "No admin access" })).toBeVisible();
+    await expect(page).toHaveURL(/\/admin\/login$/);
+    await expect(page.getByText(/doesn't have admin access/)).toBeVisible();
     await expect(page.getByText("GNS-ENQ-")).toHaveCount(0);
   });
 

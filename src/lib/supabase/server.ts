@@ -15,7 +15,7 @@ export async function createClient() {
       },
       setAll(cookiesToSet) {
         try {
-          cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options));
+          cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, { ...options, secure: publicEnv.siteUrl.startsWith("https://") || options?.secure }));
         } catch {
           // Called from a Server Component: cookies are read-only there. proxy.ts refreshes sessions.
         }

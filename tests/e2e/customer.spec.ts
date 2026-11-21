@@ -64,6 +64,7 @@ test.describe("Signed-in customer", () => {
   test("customer cannot open the admin portal", async ({ page, context, baseURL }) => {
     await loginAs(context, "CUSTOMER", baseURL!);
     await page.goto("/admin");
-    await expect(page.getByRole("heading", { name: "No admin access" })).toBeVisible();
+    await expect(page).toHaveURL(/\/admin\/login$/);
+    await expect(page.getByText(/doesn't have admin access/)).toBeVisible();
   });
 });

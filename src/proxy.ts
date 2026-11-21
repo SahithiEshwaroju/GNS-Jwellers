@@ -1,8 +1,10 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-// Refreshes the Supabase session cookie on every request and keeps signed-out visitors out of /admin.
-// Authorisation itself is enforced by RLS and by requireAdmin() in the admin layout.
+// Refreshes the Supabase session cookie on every request and gates /admin.
+// Data authorisation is enforced by RLS; this proxy additionally stops admin page code and admin server actions
+// from executing for anyone who is not an allow-listed admin (decided by the database, see below).
+const SECURE_COOKIES = (process.env.NEXT_PUBLIC_SITE_URL ?? "").startsWith("https://");
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -17,7 +19,7 @@ export async function proxy(request: NextRequest) {
       setAll(cookiesToSet, headers) {
         cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
         response = NextResponse.next({ request });
-        cookiesToSet.forEach(({ name, value, options }) => response.cookies.set(name, value, options));
+        cookiesToSet.forEach(({ name, value, options }) => response.cookies.set(name, value, { ...options, secure: SECURE_COOKIES || options?.secure }));
         Object.entries(headers ?? {}).forEach(([k, v]) => response.headers.set(k, v));
       },
     },
@@ -27,11 +29,20 @@ export async function proxy(request: NextRequest) {
   const signedIn = Boolean(data?.claims?.sub);
   const { pathname } = request.nextUrl;
 
-  if (pathname.startsWith("/admin") && !pathname.startsWith("/admin/login") && !signedIn) {
-    const login = request.nextUrl.clone();
-    login.pathname = "/admin/login";
-    login.search = "";
-    return NextResponse.redirect(login);
+  if (pathname.startsWith("/admin") && !pathname.startsWith("/admin/login")) {
+    // The decision comes from the database (is_admin(): confirmed email must be on the `admins` allow-list),
+    // never from a cookie or client-supplied claim. RLS still protects every query behind it.
+    let isAdmin = false;
+    if (signedIn) {
+      const { data: admin } = await supabase.rpc("is_admin");
+      isAdmin = admin === true;
+    }
+    if (!isAdmin) {
+      const login = request.nextUrl.clone();
+      login.pathname = "/admin/login";
+      login.search = "";
+      return NextResponse.redirect(login);
+    }
   }
   return response;
 }

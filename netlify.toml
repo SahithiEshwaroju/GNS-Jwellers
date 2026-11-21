@@ -6,6 +6,10 @@
 
 [build.environment]
   NODE_VERSION = "22"
+  # Netlify secrets scanning stays ON. These three variables are public by design (NEXT_PUBLIC_*): Next.js inlines
+  # them into the browser bundle, so the scanner would otherwise fail the build on legitimate public values.
+  # Server-side secrets (R2_*, GEMINI_*) must never be listed here. Do not add SUPABASE_SERVICE_ROLE_KEY — this app doesn't use it.
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY,NEXT_PUBLIC_SITE_URL"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

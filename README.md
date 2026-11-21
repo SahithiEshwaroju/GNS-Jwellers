@@ -12,6 +12,7 @@ Digital jewellery catalogue and WhatsApp enquiry platform for GNS Jewellers, wit
 | [ARCHITECTURE.md](ARCHITECTURE.md) | System design |
 | [DATABASE.md](DATABASE.md) | Schema, functions, migrations |
 | [SECURITY.md](SECURITY.md) | Auth, RLS, storage security, checks performed |
+| [SECURITY_AUDIT.md](SECURITY_AUDIT.md) | Pre-production attack-based security audit and findings |
 | [TEST_REPORT.md](TEST_REPORT.md) | What was tested and the results |
 | [DEPLOYMENT.md](DEPLOYMENT.md) | Netlify / Supabase / R2 / Google / Gemini setup |
 | [HANDOFF.md](HANDOFF.md) | Final status and next steps |

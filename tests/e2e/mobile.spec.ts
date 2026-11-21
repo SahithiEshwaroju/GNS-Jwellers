@@ -24,10 +24,10 @@ test.describe("Mobile layouts", () => {
     await page.goto("/jewellery");
     await page.getByRole("button", { name: /^Filters/ }).click();
     const sheet = page.getByRole("dialog", { name: "Filters" });
-    await sheet.getByLabel(/^Silver/).check();
+    await sheet.getByLabel(/^Gold/).first().check(); // metal facets depend on live catalogue data; Gold always exists
     await sheet.getByRole("button", { name: "Save" }).click();
-    await expect(page).toHaveURL(/metal=silver/);
-    await expect(page.getByText("1 Product")).toBeVisible();
+    await expect(page).toHaveURL(/metal=gold/);
+    await expect(page.getByText(/^\d+ Products?$/)).toBeVisible();
   });
 
   test("admin portal works on a phone", async ({ page, context, baseURL }) => {

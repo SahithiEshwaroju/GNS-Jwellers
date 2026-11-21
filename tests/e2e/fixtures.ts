@@ -18,5 +18,15 @@ export async function adminDb(): Promise<SupabaseClient> {
 
 export const randomMobile = () => `9${String(Math.floor(Math.random() * 1e9)).padStart(9, "0")}`;
 
-export const test = base;
+/** Every page used in a test also asserts that the Content-Security-Policy blocked nothing. */
+export const test = base.extend({
+  page: async ({ page }, run) => {
+    const violations: string[] = [];
+    page.on("console", (m) => {
+      if (/Content Security Policy|violates the following/i.test(m.text())) violations.push(m.text().slice(0, 240));
+    });
+    await run(page);
+    expect(violations, "CSP violations").toEqual([]);
+  },
+});
 export { expect };
