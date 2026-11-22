@@ -7,6 +7,7 @@ import {
   DeleteObjectsCommand,
   HeadBucketCommand,
   GetBucketCorsCommand,
+  ListObjectsV2Command,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { serverEnv, r2Configured } from "@/lib/server-env";
@@ -105,4 +106,16 @@ export async function checkBucket(): Promise<void> {
 export async function readBucketCors() {
   const r = await s3().send(new GetBucketCorsCommand({ Bucket: serverEnv.r2.bucket }));
   return (r.CORSRules ?? []).map((c) => ({ origins: c.AllowedOrigins ?? [], methods: c.AllowedMethods ?? [], headers: c.AllowedHeaders ?? [] }));
+}
+
+/** System Check: total objects and bytes in the bucket (pages through ListObjectsV2; capped so it can never run away). */
+export async function bucketUsage(maxPages = 200): Promise<{ objects: number; bytes: number; complete: boolean }> {
+  let objects = 0, bytes = 0, token: string | undefined;
+  for (let page = 0; page < maxPages; page++) {
+    const r = await s3().send(new ListObjectsV2Command({ Bucket: serverEnv.r2.bucket, ContinuationToken: token }));
+    for (const o of r.Contents ?? []) { objects++; bytes += Number(o.Size ?? 0); }
+    if (!r.IsTruncated) return { objects, bytes, complete: true };
+    token = r.NextContinuationToken;
+  }
+  return { objects, bytes, complete: false };
 }

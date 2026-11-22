@@ -12,7 +12,7 @@
   #   R2_BUCKET      -> just the bucket name (shown in docs / .env.example)
   #   GEMINI_MODEL   -> just a model name such as gemini-2.5-flash (default value in code and docs)
   # Never add a real secret key to this list. This app does not use a Supabase service-role key.
-  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY,NEXT_PUBLIC_SITE_URL,R2_BUCKET,GEMINI_MODEL"
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY,NEXT_PUBLIC_SITE_URL,R2_BUCKET,GEMINI_MODEL,DB_LIMIT_MB,STORAGE_LIMIT_GB"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
