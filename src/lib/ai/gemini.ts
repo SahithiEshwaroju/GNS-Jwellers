@@ -80,3 +80,22 @@ export function suggestDescription(facts: DescribeFacts): Promise<AiResult<{ des
     return { description: s(o.description), model_description: s(o.model_description) };
   });
 }
+
+/** Diagnostics: a minimal call that proves the key, model and network path work. */
+export async function pingGemini(): Promise<{ ok: true } | { ok: false; detail: string }> {
+  if (!geminiConfigured()) return { ok: false, detail: "GEMINI_API_KEY is not set" };
+  try {
+    const { apiKey, model } = serverEnv.gemini;
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
+      body: JSON.stringify({ contents: [{ role: "user", parts: [{ text: "Reply with the single word OK." }] }], generationConfig: { maxOutputTokens: 8 } }),
+      signal: AbortSignal.timeout(15_000),
+    });
+    if (res.ok) return { ok: true };
+    const hint = res.status === 400 ? "the key or model name is invalid" : res.status === 403 ? "the key is not allowed to use this model" : res.status === 404 ? "the model name was not found (check GEMINI_MODEL)" : res.status === 429 ? "quota or rate limit reached" : "unexpected response";
+    return { ok: false, detail: `HTTP ${res.status}: ${hint}` };
+  } catch (e) {
+    return { ok: false, detail: e instanceof Error && e.name === "TimeoutError" ? "no response within 15 s" : "could not reach Google" };
+  }
+}

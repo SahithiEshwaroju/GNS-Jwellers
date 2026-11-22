@@ -51,7 +51,7 @@ export function ProductsTable({ rows }: { rows: Row[] }) {
                 <td><Toggle checked={r.is_featured} label={`Feature ${r.name}`} disabled={pending} onChange={(v) => run(() => setProductFeatured(r.id, v), v ? `${r.name} is featured` : `${r.name} is no longer featured`)} /></td>
                 <td>
                   <div className="flex items-center justify-end gap-1">
-                    <button type="button" className="btn btn-ghost btn-sm" disabled={pending}
+                    <button type="button" className="btn btn-ghost btn-sm" disabled={pending} aria-busy={pending}
                       onClick={() => run(() => setProductStatus(r.id, r.status === "published" ? "draft" : "published"), r.status === "published" ? `${r.name} unpublished` : `${r.name} published`)}>
                       {r.status === "published" ? "Unpublish" : "Publish"}
                     </button>
@@ -66,7 +66,7 @@ export function ProductsTable({ rows }: { rows: Row[] }) {
       </div>
       <Modal open={!!confirm} onClose={() => setConfirm(null)} title="Delete product?" size="sm"
         footer={<div className="flex justify-end gap-3"><button type="button" className="btn btn-outline" onClick={() => setConfirm(null)}>Cancel</button>
-          <button type="button" className="btn btn-primary" disabled={pending} onClick={() => { const c = confirm!; setConfirm(null); run(() => deleteProduct(c.id), `${c.name} deleted`); }}>Delete</button></div>}>
+          <button type="button" className="btn btn-primary" disabled={pending} aria-busy={pending} onClick={() => { const c = confirm!; setConfirm(null); run(() => deleteProduct(c.id), `${c.name} deleted`); }}>Delete</button></div>}>
         <p>This permanently removes <b>{confirm?.name}</b> ({confirm?.code}) and its photos. Saved designs and enquiry history keep the product name. This can&apos;t be undone.</p>
       </Modal>
     </>

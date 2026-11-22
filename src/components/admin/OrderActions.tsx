@@ -17,14 +17,14 @@ export function OrderActions({ id, status, notes, delivery }: { id: string; stat
       {msg ? <p role={msg.ok ? "status" : "alert"} className={`rounded px-3 py-2 text-[14px] ${msg.ok ? "bg-ok-bg text-ok-ink" : "bg-cancel-bg text-cancel-ink"}`}>{msg.text}</p> : null}
       <div className="grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end">
         <div><label htmlFor="od" className="label">Expected delivery</label><input id="od" type="date" className="input" value={d} onChange={(e) => setD(e.target.value)} /></div>
-        <button type="button" className="btn btn-outline" disabled={pending} onClick={() => run({ expected_delivery_date: d }, "Delivery date updated.")}>Save date</button>
+        <button type="button" className="btn btn-outline" disabled={pending} aria-busy={pending} onClick={() => run({ expected_delivery_date: d }, "Delivery date updated.")}>Save date</button>
       </div>
       <div><label htmlFor="on" className="label">Notes</label><textarea id="on" className="input" rows={3} maxLength={2000} value={n} onChange={(e) => setN(e.target.value)} /></div>
-      <button type="button" className="btn btn-outline" disabled={pending} onClick={() => run({ notes: n }, "Notes saved.")}>Save notes</button>
+      <button type="button" className="btn btn-outline" disabled={pending} aria-busy={pending} onClick={() => run({ notes: n }, "Notes saved.")}>Save notes</button>
       <div className="flex flex-wrap gap-3 border-t border-line pt-4">
-        {status !== "delivered" ? <button type="button" className="btn btn-primary" disabled={pending} onClick={() => run({ status: "delivered" }, "Marked as delivered.")}>Mark delivered</button> : null}
-        {status !== "confirmed" ? <button type="button" className="btn btn-outline" disabled={pending} onClick={() => run({ status: "confirmed" }, "Marked as confirmed.")}>Mark confirmed</button> : null}
-        {status !== "cancelled" ? <button type="button" className="btn btn-danger" disabled={pending} onClick={() => run({ status: "cancelled" }, "Order cancelled.")}>Cancel order</button> : null}
+        {status !== "delivered" ? <button type="button" className="btn btn-primary" disabled={pending} aria-busy={pending} onClick={() => run({ status: "delivered" }, "Marked as delivered.")}>Mark delivered</button> : null}
+        {status !== "confirmed" ? <button type="button" className="btn btn-outline" disabled={pending} aria-busy={pending} onClick={() => run({ status: "confirmed" }, "Marked as confirmed.")}>Mark confirmed</button> : null}
+        {status !== "cancelled" ? <button type="button" className="btn btn-danger" disabled={pending} aria-busy={pending} onClick={() => run({ status: "cancelled" }, "Order cancelled.")}>Cancel order</button> : null}
       </div>
     </section>
   );

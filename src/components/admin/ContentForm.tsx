@@ -32,7 +32,7 @@ export function ContentForm({ initial }: { initial: SiteSettingsRow }) {
     <form onSubmit={(e) => { e.preventDefault(); save(); }} noValidate>
       <div className="mb-4 flex items-center justify-between gap-3">
         {msg ? <p role={msg.ok ? "status" : "alert"} className={`rounded px-4 py-2 text-[14px] ${msg.ok ? "bg-ok-bg text-ok-ink" : "bg-cancel-bg text-cancel-ink"}`}>{msg.text}</p> : <span />}
-        <button type="submit" className="btn btn-primary" disabled={pending}>{pending ? "Saving…" : "Save changes"}</button>
+        <button type="submit" className="btn btn-primary" disabled={pending} aria-busy={pending}>{pending ? "Saving…" : "Save changes"}</button>
       </div>
       <div className="grid gap-5 xl:grid-cols-3">
         <section className="admin-card space-y-4 p-5">

@@ -91,7 +91,7 @@ function Categories({ categories, home, run, pending }: { categories: Cat[]; hom
           ))}
         </ol>
         <div className="mt-4 flex flex-wrap items-center gap-4">
-          <button type="button" className="btn btn-primary" disabled={pending} onClick={() => run(() => saveHomeCategories({ order: order.map(({ id, show_on_home }) => ({ id, show_on_home })), layout, limit, colsMobile: cols }), "Home page categories saved.")}>Save home page categories</button>
+          <button type="button" className="btn btn-primary" disabled={pending} aria-busy={pending} onClick={() => run(() => saveHomeCategories({ order: order.map(({ id, show_on_home }) => ({ id, show_on_home })), layout, limit, colsMobile: cols }), "Home page categories saved.")}>Save home page categories</button>
           <span className="text-[13px] text-muted">{shown.length} of {order.length} categories shown on the home page</span>
         </div>
       </section>
@@ -99,7 +99,7 @@ function Categories({ categories, home, run, pending }: { categories: Cat[]; hom
       <form className="admin-card grid gap-3 p-5 sm:grid-cols-[1fr_160px_auto] sm:items-end" onSubmit={(e) => { e.preventDefault(); run(() => addCategory(newName, newPrefix), `Category “${newName}” added.`, () => { setNewName(""); setNewPrefix(""); }); }}>
         <div><label htmlFor="nc" className="label">New category</label><input id="nc" className="input" maxLength={60} placeholder="e.g. Nose Pins" value={newName} onChange={(e) => setNewName(e.target.value)} /></div>
         <div><label htmlFor="ncp" className="label">Code prefix</label><input id="ncp" className="input uppercase" maxLength={4} placeholder="e.g. NP" value={newPrefix} onChange={(e) => setNewPrefix(e.target.value.toUpperCase())} /></div>
-        <button className="btn btn-primary" type="submit" disabled={pending}>Add category</button>
+        <button className="btn btn-primary" type="submit" disabled={pending} aria-busy={pending}>Add category</button>
       </form>
 
       {categories.map((c) => (
@@ -162,7 +162,7 @@ function Collections({ collections, run, pending }: { collections: Col[]; run: R
       </ul>
       {!collections.length ? <p className="text-muted">No collections yet.</p> : null}
       <Modal open={!!edit} onClose={() => setEdit(null)} title={edit?.id ? "Edit collection" : "New collection"}
-        footer={<div className="flex justify-end gap-3"><button type="button" className="btn btn-outline" onClick={() => setEdit(null)}>Cancel</button><button type="button" className="btn btn-primary" disabled={pending} onClick={() => { const e = edit!; run(() => saveCollection({ id: e.id, name: e.name, description: e.description, theme_color: e.theme_color, show_on_home: e.show_on_home }), "Collection saved.", () => setEdit(null)); }}>Save</button></div>}>
+        footer={<div className="flex justify-end gap-3"><button type="button" className="btn btn-outline" onClick={() => setEdit(null)}>Cancel</button><button type="button" className="btn btn-primary" disabled={pending} aria-busy={pending} onClick={() => { const e = edit!; run(() => saveCollection({ id: e.id, name: e.name, description: e.description, theme_color: e.theme_color, show_on_home: e.show_on_home }), "Collection saved.", () => setEdit(null)); }}>Save</button></div>}>
         {edit ? (
           <div className="space-y-4">
             <div><label htmlFor="cn" className="label">Name</label><input id="cn" className="input" maxLength={60} value={edit.name} onChange={(e) => setEdit({ ...edit, name: e.target.value })} /></div>
@@ -191,7 +191,7 @@ function Tags({ tags, run, pending }: { tags: Tag[]; run: Run; pending: boolean 
       <form className="admin-card flex gap-3 p-5" onSubmit={(e) => { e.preventDefault(); run(() => saveTag(null, name), `Tag “${name}” added.`, () => setName("")); }}>
         <label htmlFor="nt" className="sr-only">New tag</label>
         <input id="nt" className="input" maxLength={40} placeholder="New tag, e.g. Lightweight" value={name} onChange={(e) => setName(e.target.value)} />
-        <button type="submit" className="btn btn-primary" disabled={pending}>Add tag</button>
+        <button type="submit" className="btn btn-primary" disabled={pending} aria-busy={pending}>Add tag</button>
       </form>
       <ul className="admin-card divide-y divide-line">
         {tags.map((t) => (
@@ -206,7 +206,7 @@ function Tags({ tags, run, pending }: { tags: Tag[]; run: Run; pending: boolean 
               <span className="flex-1"><b className="font-medium">{t.name}</b> <span className="text-[13px] text-muted">· {t.products} products</span></span>
             )}
             <button type="button" className="btn btn-ghost btn-sm" onClick={() => setEdit({ ...edit, [t.id]: t.name })}>Rename</button>
-            <button type="button" className="btn btn-danger btn-sm" disabled={pending} onClick={() => run(() => deleteTag(t.id), `Tag “${t.name}” removed from all products.`)}>Delete</button>
+            <button type="button" className="btn btn-danger btn-sm" disabled={pending} aria-busy={pending} onClick={() => run(() => deleteTag(t.id), `Tag “${t.name}” removed from all products.`)}>Delete</button>
           </li>
         ))}
         {!tags.length ? <li className="p-4 text-muted">No tags yet.</li> : null}

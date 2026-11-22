@@ -5,6 +5,8 @@ import {
   GetObjectCommand,
   HeadObjectCommand,
   DeleteObjectsCommand,
+  HeadBucketCommand,
+  GetBucketCorsCommand,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { serverEnv, r2Configured } from "@/lib/server-env";
@@ -92,4 +94,15 @@ export async function deleteObjects(keys: string[]): Promise<void> {
       }),
     );
   }
+}
+
+/** Diagnostics: confirms the credentials can reach the bucket (throws the SDK error otherwise). */
+export async function checkBucket(): Promise<void> {
+  await s3().send(new HeadBucketCommand({ Bucket: serverEnv.r2.bucket }));
+}
+
+/** Diagnostics: the bucket's CORS rules, if the token is allowed to read them (object-only tokens usually are not). */
+export async function readBucketCors() {
+  const r = await s3().send(new GetBucketCorsCommand({ Bucket: serverEnv.r2.bucket }));
+  return (r.CORSRules ?? []).map((c) => ({ origins: c.AllowedOrigins ?? [], methods: c.AllowedMethods ?? [], headers: c.AllowedHeaders ?? [] }));
 }

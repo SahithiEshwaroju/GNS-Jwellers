@@ -44,7 +44,7 @@ export function CustomEnquiryForm() {
             </div>
           </div>
           <p className="hint mt-3">You can attach your reference images inside WhatsApp after it opens.</p>
-          <button type="submit" className="btn btn-primary mt-4 w-full" disabled={pending}>{pending ? "Preparing…" : "Preview WhatsApp message"}</button>
+          <button type="submit" className="btn btn-primary mt-4 w-full" disabled={pending} aria-busy={pending}>{pending ? "Preparing…" : "Preview WhatsApp message"}</button>
         </form>
       ) : !result ? (
         <div className="mt-4">
@@ -54,7 +54,7 @@ export function CustomEnquiryForm() {
             <button
               type="button"
               className="btn btn-primary"
-              disabled={pending}
+              disabled={pending} aria-busy={pending}
               onClick={() =>
                 start(async () => {
                   const r = await submitEnquiry(input());
