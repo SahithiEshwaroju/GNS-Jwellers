@@ -1,7 +1,10 @@
 import { headers } from "next/headers";
 import { PageHeader } from "@/components/admin/PageHeader";
 import { DiagnosticsPanel } from "@/components/admin/DiagnosticsPanel";
+import { CapacityPanel } from "@/components/admin/CapacityPanel";
 import { envChecks } from "@/lib/diagnostics";
+import { loadCapacity } from "@/lib/capacity";
+import { createClient } from "@/lib/supabase/server";
 
 export const metadata = { title: "System Check" };
 
@@ -28,9 +31,11 @@ export default async function DiagnosticsPage() {
     },
     { host, https },
   );
+  const capacity = await loadCapacity(await createClient());
   return (
     <>
       <PageHeader title="System Check" subtitle="Diagnose the backend connections and keys. Secret values are never shown — only whether each one is present and working." />
+      <div className="mb-5"><CapacityPanel items={capacity} /></div>
       <DiagnosticsPanel initial={checks} siteOrigin={`${https ? "https" : "http"}://${host}`} />
     </>
   );

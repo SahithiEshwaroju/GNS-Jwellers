@@ -212,6 +212,13 @@ const ICONS = {
   "sw": "1.4",
   "body": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><circle cx=\"9\" cy=\"10\" r=\"2\"/><path d=\"m21 17-5-5-8 7\"/>"
  },
+ "download": {
+  "viewBox": "0 0 24 24",
+  "fill": "none",
+  "stroke": "currentColor",
+  "sw": "1.6",
+  "body": "<path d=\"M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19h14\"></path>"
+ },
  "info-circle": {
   "viewBox": "0 0 24 24",
   "fill": "none",

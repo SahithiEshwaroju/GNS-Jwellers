@@ -28,6 +28,9 @@ const nextConfig: NextConfig = {
   // D-006: classic dynamic rendering; nearly every page reads Supabase auth cookies.
   cacheComponents: false,
   poweredByHeader: false,
+  // Backup restore sends the website data (text only; photos go straight to storage) in one action call.
+  // Netlify functions cap requests near 6 MB, so 5 MB is the practical ceiling.
+  experimental: { serverActions: { bodySizeLimit: "5mb" } },
   turbopack: {
     rules: {
       "*.css": {

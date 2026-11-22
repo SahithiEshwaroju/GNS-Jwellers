@@ -81,3 +81,12 @@ For the `initial` deploy to work, three things must also know its address (https
 2. Supabase → Authentication → URL Configuration → Redirect URLs: add `https://initial--gns-jwellers.netlify.app/auth/callback`.
 3. Cloudflare R2 CORS: add that origin.
 Note: both deployments use the **same Supabase database and R2 bucket**, so anything created while testing `initial` is real data. Use a separate Supabase project and bucket if you need isolation.
+
+## Backup & restore (Admin → Backup)
+
+- **Download:** one ZIP (photos byte-for-byte under `images/`, all tables as `data/*.json`, `manifest.json`). The browser reads data through admin-only server actions and downloads photos directly from R2 with signed URLs.
+- **Restore:** photos are uploaded to R2 and verified first; then the DB function `admin_restore_backup` replaces the content tables atomically. Accounts (auth, profiles, admins, saved items, views, activity log) are never touched; references to user accounts are cleared.
+- **Requires R2 CORS** to allow `GET` and `PUT` from the site origin (same rule as photo uploads).
+- **Limits:** website data must fit ~5 MB per restore (`serverActions.bodySizeLimit`, Netlify caps requests near 6 MB); the whole ZIP is built in browser memory.
+- **System Check** now shows database and R2 usage. Allowances default to 500 MB / 10 GB; set `DB_LIMIT_MB` / `STORAGE_LIMIT_GB` in Netlify if your plans differ (not secrets; add them to `SECRETS_SCAN_OMIT_KEYS` if the scan flags them).
+- Migration `20261122000100_backup_restore.sql` is applied to the live project.

@@ -16,6 +16,7 @@ const NAV: { href: string; label: string; icon: IconName; badge?: "enquiries" }[
   { href: "/admin/admins", label: "Admin Access", icon: "admin-admins" },
   { href: "/admin/images", label: "Images", icon: "admin-images" },
   { href: "/admin/content", label: "Site Content", icon: "admin-content" },
+  { href: "/admin/backup", label: "Backup", icon: "download" },
   { href: "/admin/diagnostics", label: "System Check", icon: "info-circle" },
 ];
 
