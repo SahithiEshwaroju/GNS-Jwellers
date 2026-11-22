@@ -17,8 +17,8 @@ export async function uploadImage(file: File, purpose: UploadPurpose, onProgress
     xhr.open("PUT", p.uploadUrl!);
     xhr.setRequestHeader("Content-Type", file.type);
     xhr.upload.onprogress = (e) => e.lengthComputable && onProgress?.(Math.round((e.loaded / e.total) * 100));
-    xhr.onload = () => (xhr.status >= 200 && xhr.status < 300 ? resolve() : reject(new Error("Upload to storage failed.")));
-    xhr.onerror = () => reject(new Error("Upload to storage failed. Check your connection."));
+    xhr.onload = () => (xhr.status >= 200 && xhr.status < 300 ? resolve() : reject(new Error(`Storage refused the upload (HTTP ${xhr.status}). Check the R2 API token permissions and the bucket name — see Admin → System Check.`)));
+    xhr.onerror = () => reject(new Error("The browser could not reach storage. Your internet is usually fine — this is most often a missing or wrong CORS rule on the Cloudflare R2 bucket for this site, or a wrong R2 account ID. Open Admin → System Check to find out which."));
     xhr.send(file);
   });
   const done = await fetch("/api/uploads/complete", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ mediaId: p.mediaId }) });

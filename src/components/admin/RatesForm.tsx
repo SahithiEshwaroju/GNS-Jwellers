@@ -29,7 +29,7 @@ export function RatesForm({ current, lastUpdated, products }: { current: { gold2
             <div><label htmlFor="r-silver" className="label">Silver — price per 1 kg (₹) <span className="text-error">*</span></label><input id="r-silver" className="input" inputMode="decimal" value={silver} onChange={(e) => setSilver(e.target.value)} /></div>
           </div>
           <div className="mt-4 max-w-[220px]"><label htmlFor="r-gst" className="label">GST (%)</label><input id="r-gst" className="input" inputMode="decimal" value={gst} onChange={(e) => setGst(e.target.value)} /><p className="hint">Applied to metal + making + stones</p></div>
-          <button type="submit" className="btn btn-primary mt-4" disabled={pending}>{pending ? "Saving…" : "Save & update prices"}</button>
+          <button type="submit" className="btn btn-primary mt-4" disabled={pending} aria-busy={pending}>{pending ? "Saving…" : "Save & update prices"}</button>
           <p className="hint mt-2">{lastUpdated}</p>
           {msg ? <p role={msg.ok ? "status" : "alert"} className={`mt-3 rounded px-3 py-2 text-[14px] ${msg.ok ? "bg-ok-bg text-ok-ink" : "bg-cancel-bg text-cancel-ink"}`}>{msg.text}</p> : null}
         </form>

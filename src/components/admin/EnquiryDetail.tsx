@@ -71,7 +71,7 @@ export function EnquiryDetail({ enquiry: e, items, aiReady }: { enquiry: Enquiry
           ) : null}
           <div className="mt-5 flex flex-wrap gap-3">
             <button type="button" className="btn btn-primary" onClick={() => { setMode("ai"); setQi(0); setError(null); }} disabled={!questions.length}>✦ Reply with AI assistance</button>
-            <button type="button" className="btn btn-outline" disabled={pending} onClick={() => start(async () => { const r = await manualReplyTemplate(e.id); setReply(e.admin_reply ?? (r.ok ? r.data.reply : "")); setNotice(null); setMode("edit"); })}>Write reply manually</button>
+            <button type="button" className="btn btn-outline" disabled={pending} aria-busy={pending} onClick={() => start(async () => { const r = await manualReplyTemplate(e.id); setReply(e.admin_reply ?? (r.ok ? r.data.reply : "")); setNotice(null); setMode("edit"); })}>Write reply manually</button>
             {e.status !== "converted" ? <Link href={`/admin/orders/new?enquiry=${e.id}`} className="btn btn-ghost">Create order</Link> : null}
           </div>
           {!aiReady ? <p className="hint mt-2">AI isn&apos;t configured, so the assistant builds a simple reply from your answers instead.</p> : null}
@@ -91,7 +91,7 @@ export function EnquiryDetail({ enquiry: e, items, aiReady }: { enquiry: Enquiry
               <div className="w-full space-y-2 sm:w-auto">
                 <label htmlFor="ai-note" className="label">Anything else to mention? (optional)</label>
                 <input id="ai-note" className="input" maxLength={1000} value={note} onChange={(ev) => setNote(ev.target.value)} />
-                <button type="button" className="btn btn-primary btn-sm w-full" disabled={pending}
+                <button type="button" className="btn btn-primary btn-sm w-full" disabled={pending} aria-busy={pending}
                   onClick={() => start(async () => {
                     const r = await aiDraftReply({ enquiryId: e.id, qa: questions.map((q, i) => ({ question: q, answer: answers[i] })), extraNote: note || undefined });
                     if (!r.ok) return setError(r.error);
@@ -115,7 +115,7 @@ export function EnquiryDetail({ enquiry: e, items, aiReady }: { enquiry: Enquiry
           <div className="mt-3 flex flex-wrap gap-3">
             <button type="button" className="btn btn-ghost" onClick={() => setMode("view")}>Cancel</button>
             {!approved ? (
-              <button type="button" className="btn btn-primary" disabled={pending || reply.trim().length < 2}
+              <button type="button" className="btn btn-primary" disabled={pending} aria-busy={pending || reply.trim().length < 2}
                 onClick={() => start(async () => { const r = await approveReply(e.id, reply); if (!r.ok) return setError(r.error); setApproved(true); router.refresh(); })}>
                 {pending ? "Saving…" : "Approve reply"}
               </button>

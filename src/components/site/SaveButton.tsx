@@ -33,7 +33,7 @@ export function SaveButton({ productId, productName, initialSaved, size = "sm" }
         }}
         className={`grid ${dim} place-items-center rounded-full border border-line bg-white text-burgundy shadow-sm transition hover:border-dusty-rose`}
       >
-        <Icon name={saved ? "heart-filled" : "heart-outline"} size={18} />
+        <Icon key={String(saved)} name={saved ? "heart-filled" : "heart-outline"} size={18} className={saved ? "pop" : undefined} />
       </button>
       <span role="status" className="sr-only">{msg}</span>
     </span>

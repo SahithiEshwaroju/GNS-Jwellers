@@ -108,7 +108,7 @@ export function EnquiryBuilder({
           <input id="enq-email" type="email" className="input" maxLength={254} autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} />
           <p className="hint mt-3">No account needed. Your details are shared only with the shop to answer this enquiry.</p>
           <div className="mt-5 flex justify-end">
-            <button type="submit" className="btn btn-primary w-full sm:w-auto" disabled={pending}>{pending ? "Preparing…" : "Review message"}</button>
+            <button type="submit" className="btn btn-primary w-full sm:w-auto" disabled={pending} aria-busy={pending}>{pending ? "Preparing…" : "Review message"}</button>
           </div>
         </form>
       ) : null}
@@ -122,7 +122,7 @@ export function EnquiryBuilder({
             <button
               type="button"
               className="btn btn-primary"
-              disabled={pending}
+              disabled={pending} aria-busy={pending}
               onClick={() => {
                 setError(null);
                 start(async () => {

@@ -7,7 +7,9 @@ import "@fontsource/dm-sans/500.css";
 import "@fontsource/dm-sans/600.css";
 import "@fontsource/dm-sans/700.css";
 import "./globals.css";
+import { Suspense } from "react";
 import { publicEnv } from "@/lib/env";
+import { NavProgress } from "@/components/ui/NavProgress";
 
 export const metadata: Metadata = {
   metadataBase: new URL(publicEnv.siteUrl),
@@ -21,7 +23,12 @@ export const viewport: Viewport = { themeColor: "#540404", width: "device-width"
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-IN">
-      <body>{children}</body>
+      <body>
+        <Suspense fallback={null}>
+          <NavProgress />
+        </Suspense>
+        {children}
+      </body>
     </html>
   );
 }

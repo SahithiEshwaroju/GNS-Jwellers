@@ -66,3 +66,18 @@ Mark R2/Gemini values as secret. Never prefix them with `NEXT_PUBLIC_`.
 ## Rollback
 - Netlify keeps previous deploys: *Deploys → (older deploy) → Publish deploy*.
 - Database migrations are additive; to roll back a future migration, write a new reverse migration rather than editing applied files. Take a backup (Supabase › Database › Backups) before running migrations on production data.
+
+## Branch workflow (default branch + initial branch)
+| Branch | Purpose | Netlify |
+|---|---|---|
+| `main` (GitHub default) | Production. Only ever updated by merging `initial` after it has been tested. | Production branch → https://gns-jwellers.netlify.app |
+| `initial` | Where new work is pushed and tested first. | Branch deploy → https://initial--gns-jwellers.netlify.app |
+
+Release: open a pull request `initial` → `main` on GitHub (or merge locally and push) → Netlify redeploys production automatically.
+
+One-time Netlify setup: **Site configuration → Build & deploy → Branches and deploy contexts** → Production branch `main`; Branch deploys → *Let me add individual branches* → add `initial`.
+For the `initial` deploy to work, three things must also know its address (https://initial--gns-jwellers.netlify.app):
+1. Netlify variable `NEXT_PUBLIC_SITE_URL` scoped to **Branch deploys** = that address (Production keeps the main address).
+2. Supabase → Authentication → URL Configuration → Redirect URLs: add `https://initial--gns-jwellers.netlify.app/auth/callback`.
+3. Cloudflare R2 CORS: add that origin.
+Note: both deployments use the **same Supabase database and R2 bucket**, so anything created while testing `initial` is real data. Use a separate Supabase project and bucket if you need isolation.

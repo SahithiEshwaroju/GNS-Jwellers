@@ -47,7 +47,7 @@ export function OrderForm({ today, prefill }: { today: string; prefill?: Prefill
         {error ? <p role="alert" className="mt-4 rounded bg-cancel-bg px-3 py-2 text-[14px] text-cancel-ink">{error}</p> : null}
         <div className="mt-6 flex gap-3">
           <button type="button" className="btn btn-outline" onClick={() => setReview(false)}>Edit</button>
-          <button type="button" className="btn btn-primary" disabled={pending} onClick={() => start(async () => {
+          <button type="button" className="btn btn-primary" disabled={pending} aria-busy={pending} onClick={() => start(async () => {
             const r = await confirmOrder(payload());
             if (!r.ok) return setError(r.error);
             router.push(`/admin/orders/${r.data.id}?created=${encodeURIComponent(r.data.orderNo)}`);

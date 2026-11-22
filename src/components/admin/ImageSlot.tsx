@@ -41,7 +41,7 @@ export function ImageSlot({ title, hint, target, mediaId, disabled }: { title: s
       {error ? <p role="alert" className="err">{error}</p> : null}
       <div className="mt-auto flex gap-2 pt-3">
         <button type="button" className="btn btn-outline btn-sm" disabled={disabled || !!status} onClick={() => input.current?.click()}>{mediaId ? "Replace" : "Upload"}</button>
-        {mediaId ? <button type="button" className="btn btn-ghost btn-sm" disabled={pending} onClick={() => start(async () => { const r = await setSiteImage(target, null); if (!r.ok) setError(r.error); router.refresh(); })}>Remove</button> : null}
+        {mediaId ? <button type="button" className="btn btn-ghost btn-sm" disabled={pending} aria-busy={pending} onClick={() => start(async () => { const r = await setSiteImage(target, null); if (!r.ok) setError(r.error); router.refresh(); })}>Remove</button> : null}
       </div>
       <input ref={input} type="file" accept="image/jpeg,image/png,image/webp" hidden onChange={(e) => onFile(e.target.files?.[0])} aria-label={`Upload ${title}`} />
     </li>

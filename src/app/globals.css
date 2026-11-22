@@ -110,9 +110,21 @@
     font-weight: 500;
     font-size: 15px;
     border: 1px solid transparent;
-    transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+    transition: background-color 0.15s, border-color 0.15s, color 0.15s, transform 0.12s ease, box-shadow 0.18s ease;
     cursor: pointer;
     white-space: nowrap;
+  }
+  /* press feedback */
+  .btn:active:not(:disabled),
+  .pill:active { transform: translateY(1px) scale(0.97); }
+  .btn-primary:hover:not(:disabled) { box-shadow: 0 6px 16px rgba(84, 4, 4, 0.25); }
+  .btn-wa:hover:not(:disabled) { box-shadow: 0 6px 16px rgba(31, 122, 77, 0.28); }
+  .btn-outline:hover:not(:disabled) { box-shadow: 0 3px 10px rgba(84, 4, 4, 0.12); }
+  /* busy state: spinner appears before the label, button ignores clicks */
+  .btn[aria-busy="true"] { pointer-events: none; }
+  .btn[aria-busy="true"]::before {
+    content: ""; flex: none; width: 14px; height: 14px; border-radius: 50%;
+    border: 2px solid currentColor; border-right-color: transparent; animation: spin 0.7s linear infinite;
   }
   .btn:disabled { opacity: 0.55; cursor: not-allowed; }
   .btn-sm { min-height: 36px; padding: 0 14px; font-size: 14px; }
@@ -194,4 +206,36 @@
   @media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }
 
   .sr-only-focusable:not(:focus) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* motion */
+  .spinner { display: inline-block; flex: none; width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--color-burgundy); border-right-color: transparent; animation: spin 0.7s linear infinite; }
+  .fade-in { animation: fade-in 0.3s ease-out both; }
+  .pop { animation: pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .card, .admin-card { transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease; }
+  article.card:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(63, 13, 12, 0.12); border-color: var(--color-dusty-rose); }
+  dialog[open] { animation: dialog-in 0.22s ease-out; }
+  dialog[open]::backdrop { animation: fade-in 0.22s ease-out; }
+  @media (max-width: 639px) { dialog[open] { animation-name: sheet-in; } }
+  .nav-progress { position: fixed; inset-inline: 0; top: 0; height: 3px; z-index: 100; background: var(--color-burgundy); transform-origin: left; animation: progress 2.4s cubic-bezier(0.1, 0.6, 0.2, 1) forwards; box-shadow: 0 0 8px rgba(84, 4, 4, 0.5); }
+  /* AI scanning effect */
+  .scan-frame { position: relative; overflow: hidden; border-radius: 8px; }
+  .scan-line { position: absolute; left: 0; right: 0; height: 56px; top: -56px; background: linear-gradient(to bottom, transparent, rgba(168, 124, 58, 0.55), transparent); border-bottom: 2px solid rgba(168, 124, 58, 0.9); animation: scan 1.8s ease-in-out infinite; }
+  .scan-glow { position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, rgba(84, 4, 4, 0.08), rgba(84, 4, 4, 0.28)); animation: pulse 1.8s ease-in-out infinite; }
+  .dots::after { content: ""; display: inline-block; width: 1.2em; text-align: left; animation: dots 1.4s steps(4, end) infinite; }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes fade-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  @keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.35); } 100% { transform: scale(1); } }
+  @keyframes dialog-in { from { opacity: 0; transform: translateY(10px) scale(0.98); } to { opacity: 1; transform: none; } }
+  @keyframes sheet-in { from { opacity: 0.6; transform: translateY(40px); } to { opacity: 1; transform: none; } }
+  @keyframes progress { 0% { transform: scaleX(0); } 60% { transform: scaleX(0.7); } 100% { transform: scaleX(0.92); } }
+  @keyframes scan { 0% { top: -56px; } 100% { top: 100%; } }
+  @keyframes pulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+  @keyframes dots { 0% { content: ""; } 25% { content: "."; } 50% { content: ".."; } 75% { content: "..."; } }
+  @media (prefers-reduced-motion: reduce) {
+    .btn, .pill, .card, .admin-card { transition: none; }
+    .scan-line, .scan-glow, .nav-progress, .fade-in, .pop, .spinner, .dots::after, dialog[open], dialog[open]::backdrop { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+    .btn[aria-busy="true"]::before { animation-duration: 1.6s; }
+    article.card:hover { transform: none; }
+  }
 }

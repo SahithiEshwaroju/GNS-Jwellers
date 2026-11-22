@@ -21,7 +21,7 @@ export function AdminsManager({ admins }: { admins: A[] }) {
         onSubmit={(e) => { e.preventDefault(); start(async () => { const r = await addAdmin({ name, email }); setMsg(r.ok ? { ok: true, text: `${email} can now sign in to the admin portal.` } : { ok: false, text: r.error }); if (r.ok) { setName(""); setEmail(""); } router.refresh(); }); }}>
         <div><label htmlFor="an" className="label">Name</label><input id="an" className="input" maxLength={100} value={name} onChange={(e) => setName(e.target.value)} /></div>
         <div><label htmlFor="ae" className="label">Google email address <span className="text-error">*</span></label><input id="ae" type="email" className="input" maxLength={254} placeholder="name@gmail.com" value={email} onChange={(e) => setEmail(e.target.value)} /></div>
-        <button type="submit" className="btn btn-primary" disabled={pending}>Add admin</button>
+        <button type="submit" className="btn btn-primary" disabled={pending} aria-busy={pending}>Add admin</button>
       </form>
       {msg ? <p role={msg.ok ? "status" : "alert"} className={`mt-3 rounded px-4 py-2 text-[14px] ${msg.ok ? "bg-ok-bg text-ok-ink" : "bg-cancel-bg text-cancel-ink"}`}>{msg.text}</p> : null}
       <div className="admin-card mt-5 overflow-x-auto">

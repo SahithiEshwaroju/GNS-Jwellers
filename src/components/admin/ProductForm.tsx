@@ -201,7 +201,7 @@ export function ProductForm({
               <div className={field}>
                 <div className="flex items-center justify-between">
                   <label htmlFor="p-desc" className="label">Description</label>
-                  <button type="button" className="btn btn-ghost btn-sm" onClick={suggest} disabled={aiPending || !f.name} title={aiReady ? "" : "AI isn't configured"}>
+                  <button type="button" className="btn btn-ghost btn-sm" onClick={suggest} disabled={aiPending} aria-busy={aiPending || !f.name} title={aiReady ? "" : "AI isn't configured"}>
                     {aiPending ? "Thinking…" : "✦ Suggest with AI"}
                   </button>
                 </div>
@@ -214,7 +214,7 @@ export function ProductForm({
                     <p className="mt-1"><b>Design:</b> {suggestion.model_description}</p>
                     <div className="mt-3 flex flex-wrap gap-2">
                       <button type="button" className="btn btn-primary btn-sm" onClick={() => { setF((x) => ({ ...x, description: suggestion.description, model_description: suggestion.model_description })); setSuggestion(null); }}>Accept</button>
-                      <button type="button" className="btn btn-outline btn-sm" onClick={suggest} disabled={aiPending}>Regenerate</button>
+                      <button type="button" className="btn btn-outline btn-sm" onClick={suggest} disabled={aiPending} aria-busy={aiPending}>Regenerate</button>
                       <button type="button" className="btn btn-ghost btn-sm" onClick={() => setSuggestion(null)}>Reject</button>
                     </div>
                   </div>
@@ -281,8 +281,8 @@ export function ProductForm({
           <section className="admin-card space-y-3 p-5">
             <p className="text-[14px]">Status: <span className={`badge ${f.status === "published" ? "badge-ok" : "badge-draft"}`}>{f.status === "published" ? "Published" : "Draft"}</span> {f.is_sample ? <span className="badge badge-sample">Sample</span> : null}</p>
             <button type="button" className="btn btn-outline w-full" onClick={() => setPreview(true)}>Preview</button>
-            <button type="submit" className="btn btn-outline w-full" disabled={pending}>{pending ? "Saving…" : f.status === "published" ? "Save & unpublish (draft)" : "Save draft"}</button>
-            <button type="button" className="btn btn-primary w-full" disabled={pending} onClick={() => submit("published")}>{f.status === "published" ? "Save changes" : "Save & publish"}</button>
+            <button type="submit" className="btn btn-outline w-full" disabled={pending} aria-busy={pending}>{pending ? "Saving…" : f.status === "published" ? "Save & unpublish (draft)" : "Save draft"}</button>
+            <button type="button" className="btn btn-primary w-full" disabled={pending} aria-busy={pending} onClick={() => submit("published")}>{f.status === "published" ? "Save changes" : "Save & publish"}</button>
             {f.code && f.status === "published" ? <Link href={`/product/${f.code}`} className="block text-center text-[14px] text-burgundy underline" target="_blank">View on website</Link> : null}
           </section>
         </aside>
