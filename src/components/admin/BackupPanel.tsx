@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { exportBackup, importBackup, type BackupApi, type Progress } from "@/lib/backup/engine";
 import { readBackupZip, type Manifest } from "@/lib/backup/format";
-import { backupDownloadUrls, backupTablePage, presignRestoreImages, restoreDatabase, verifyRestoredImages } from "@/app/actions/backup";
+import { backupDownloadUrls, backupTablePage, presignRestoreImages, resetWebsite, restoreDatabase, verifyRestoredImages } from "@/app/actions/backup";
 
 const GONE = "Your admin session has ended. Please sign in again.";
 function must<T extends { ok: boolean }>(r: T | undefined): Extract<T, { ok: true }> {
@@ -54,6 +54,9 @@ export function BackupPanel() {
   const [safety, setSafety] = useState(true);
   const [confirm, setConfirm] = useState("");
   const input = useRef<HTMLInputElement>(null);
+  const [rst, setRst] = useState<Run>({ state: "idle" });
+  const [rstSafety, setRstSafety] = useState(true);
+  const [rstConfirm, setRstConfirm] = useState("");
 
   const progress = (set: (r: Run) => void): Progress => (p) => set({ state: "busy", ...p });
 
@@ -98,8 +101,26 @@ export function BackupPanel() {
     }
   }
 
+  async function reset() {
+    try {
+      if (rstSafety) {
+        setRst({ state: "busy", phase: "Downloading a backup of everything first", done: 0, total: 1 });
+        const { zip } = await exportBackup(api, progress(setRst));
+        save(zip); // if this throws, nothing has been deleted
+      }
+      setRst({ state: "busy", phase: "Deleting all website data and photos", done: 0, total: 1 });
+      const r = await resetWebsite();
+      if (!r) throw new Error(GONE);
+      if (!r.ok) throw new Error(r.error);
+      setRst({ state: "ok", message: `The website has been reset to empty${r.photosFailed ? " — but some photos could not be removed from storage (you can delete them in Cloudflare)" : `. ${r.photosDeleted} photo${r.photosDeleted === 1 ? "" : "s"} deleted`}. Admin accounts were kept. Use "Restore" with the starter file to start again.` });
+      setRstConfirm("");
+    } catch (e) {
+      setRst({ state: "fail", message: `${e instanceof Error ? e.message : "The reset failed."} Nothing was deleted.` });
+    }
+  }
+
   const m = file?.manifest;
-  const busy = exp.state === "busy" || imp.state === "busy";
+  const busy = exp.state === "busy" || imp.state === "busy" || rst.state === "busy";
   return (
     <div className="grid gap-5 lg:grid-cols-2">
       <section className="admin-card p-5">
@@ -134,6 +155,18 @@ export function BackupPanel() {
         <Bar run={imp} />
         {imp.message ? <p className={`mt-3 text-[14px] fade-in ${imp.state === "fail" ? "text-error" : "text-ok-ink"}`} role={imp.state === "fail" ? "alert" : "status"}>{imp.message}</p> : null}
         <p className="mt-3 text-[12px] text-muted">Photos are uploaded first and verified; the website data is then replaced in one all-or-nothing step, so a failed restore leaves the current data untouched. The website data must fit in about 5 MB (thousands of products).</p>
+      </section>
+      <section className="admin-card border-danger p-5 lg:col-span-2" style={{ borderColor: "var(--color-danger)" }}>
+        <h2 className="text-[24px] text-danger">Reset the whole website</h2>
+        <p className="mt-2 text-[14px] text-muted"><strong>Permanently deletes</strong> every product, category, collection, tag, photo, rate, enquiry, order, saved design and site text, and empties the photo storage. Admin accounts are kept. This cannot be undone — except from a backup.</p>
+        <label className="mt-3 flex items-start gap-2 text-[14px]"><input type="checkbox" className="mt-1" checked={rstSafety} onChange={(e) => setRstSafety(e.target.checked)} disabled={busy} /> <span>Download a backup to this device first (recommended). If the backup fails, nothing is deleted.</span></label>
+        <label className="mt-3 block text-[14px]" htmlFor="reset-confirm">Type <strong>DELETE EVERYTHING</strong> to confirm</label>
+        <input id="reset-confirm" className="field mt-1 w-full max-w-sm" value={rstConfirm} onChange={(e) => setRstConfirm(e.target.value)} autoComplete="off" disabled={busy} />
+        <div><button type="button" className="btn mt-3 text-white" style={{ background: "var(--color-danger)" }} onClick={reset} disabled={busy || rstConfirm !== "DELETE EVERYTHING"} aria-busy={rst.state === "busy"}>
+          {rst.state === "busy" ? "Working…" : "Reset website"}
+        </button></div>
+        <Bar run={rst} />
+        {rst.message ? <p className={`mt-3 text-[14px] fade-in ${rst.state === "fail" ? "text-error" : "text-ok-ink"}`} role={rst.state === "fail" ? "alert" : "status"}>{rst.message}</p> : null}
       </section>
     </div>
   );

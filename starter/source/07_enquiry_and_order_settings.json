@@ -1,0 +1,27 @@
+{
+  "enquiry_questions": [
+    "What is the approximate price?",
+    "What are the making charges?",
+    "Can I provide my own gold?",
+    "How many days will it take to make?",
+    "Is this design currently available?",
+    "Can this design be customized?",
+    "What is the approximate gold weight?"
+  ],
+  "enquiry_statuses": [
+    "New",
+    "In progress",
+    "Replied",
+    "Converted to order",
+    "Closed"
+  ],
+  "enquiry_reference_format": "GNS-ENQ-{seq:04d}",
+  "enquiry_seq_start": 1,
+  "order_statuses": [
+    "Confirmed",
+    "Cancelled"
+  ],
+  "order_number_format": "GNS-{seq:04d}",
+  "order_seq_start": 1,
+  "product_code_format": "GNS-{prefix}-{seq:04d}"
+}

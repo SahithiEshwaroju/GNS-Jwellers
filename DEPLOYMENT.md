@@ -90,3 +90,7 @@ Note: both deployments use the **same Supabase database and R2 bucket**, so anyt
 - **Limits:** website data must fit ~5 MB per restore (`serverActions.bodySizeLimit`, Netlify caps requests near 6 MB); the whole ZIP is built in browser memory.
 - **System Check** now shows database and R2 usage. Allowances default to 500 MB / 10 GB; set `DB_LIMIT_MB` / `STORAGE_LIMIT_GB` in Netlify if your plans differ (not secrets; add them to `SECRETS_SCAN_OMIT_KEYS` if the scan flags them).
 - Migration `20261122000100_backup_restore.sql` is applied to the live project.
+
+### Starter data & reset
+- `starter/GNS-Jewellers-Starter-Backup.zip` is a backup-format file with the default categories, subcategories, collections, tags and site text — **no products, no photos**. Import it from Admin → Backup → Restore (rebuild with `WRITE_STARTER=1 npx vitest run tests/unit/starter.test.ts`; sources in `starter/source/`).
+- Admin → Backup → "Reset the whole website" deletes all content and photos (admins kept), after a typed confirmation, and downloads a backup first unless unticked (a failed backup aborts the reset). Order/enquiry numbering restarts.

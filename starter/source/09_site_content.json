@@ -1,0 +1,45 @@
+{
+  "shopName": "GNS Jewellers",
+  "tagline": "GOLD · SILVER · WORKSHOP",
+  "whatsapp": "",
+  "phone": "",
+  "email": "",
+  "address": "",
+  "hours": "",
+  "heroEyebrow": "Timeless Jewellery",
+  "heroTitle": "Tradition in Every Design",
+  "heroText": "Discover a curated collection of gold, diamond and silver jewellery, crafted for life's special moments.",
+  "trustPoints": [
+    "Authentic Jewellery",
+    "Quality Assured",
+    "Trusted Craftsmanship"
+  ],
+  "highlights": [
+    {
+      "title": "Certified Purity",
+      "text": "Hallmarked jewellery"
+    },
+    {
+      "title": "Curated Designs",
+      "text": "Traditional & modern"
+    },
+    {
+      "title": "Custom Creations",
+      "text": "Discuss your own design"
+    },
+    {
+      "title": "Personal Assistance",
+      "text": "Talk to us on WhatsApp"
+    }
+  ],
+  "story": "",
+  "aboutIntro": "",
+  "aboutStory": "",
+  "values": "",
+  "instagram": "",
+  "youtube": "",
+  "facebook": "",
+  "privacy": "",
+  "terms": "",
+  "note": "Empty fields show as placeholders until the owner fills them in Admin › Site Content. Only keep trust claims the shop can back up."
+}

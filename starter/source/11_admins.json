@@ -1,0 +1,9 @@
+{
+  "admins": [
+    {
+      "name": "",
+      "email": "OWNER_GOOGLE_EMAIL@gmail.com",
+      "note": "First admin — replace with the owner's real Google email. All admins are equal."
+    }
+  ]
+}

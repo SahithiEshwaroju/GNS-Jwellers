@@ -1,0 +1,52 @@
+{
+  "collections": [
+    {
+      "id": "bridal",
+      "name": "Bridal Collection",
+      "description": "Grand designs for your big day.",
+      "cover_image": null,
+      "sort": 1,
+      "active": true
+    },
+    {
+      "id": "everyday",
+      "name": "Everyday Elegance",
+      "description": "Lightweight, stylish and perfect for daily wear.",
+      "cover_image": null,
+      "sort": 2,
+      "active": true
+    },
+    {
+      "id": "heritage",
+      "name": "Heritage Collection",
+      "description": "Temple-inspired designs with an antique finish.",
+      "cover_image": null,
+      "sort": 3,
+      "active": true
+    },
+    {
+      "id": "contemporary",
+      "name": "Contemporary Collection",
+      "description": "Clean, modern forms in gold and silver.",
+      "cover_image": null,
+      "sort": 4,
+      "active": true
+    },
+    {
+      "id": "festive",
+      "name": "Festive Edit",
+      "description": "Pieces for festivals and celebrations.",
+      "cover_image": null,
+      "sort": 5,
+      "active": true
+    },
+    {
+      "id": "kids",
+      "name": "Little Ones",
+      "description": "Light, safe designs for children.",
+      "cover_image": null,
+      "sort": 6,
+      "active": true
+    }
+  ]
+}
