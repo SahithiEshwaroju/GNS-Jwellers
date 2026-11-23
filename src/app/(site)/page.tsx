@@ -32,7 +32,7 @@ export default async function HomePage() {
               <Icon name="lotus-logo" size={420} className="absolute right-[6%] top-1/2 hidden -translate-y-1/2 text-[#e6d5bb] lg:block" strokeWidth={0.6} />
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-r from-champagne via-champagne/85 to-transparent lg:from-champagne lg:via-champagne/60" />
+          <div className="absolute inset-0 bg-gradient-to-r from-champagne via-champagne/85 to-transparent lg:from-champagne lg:via-champagne/55 lg:via-18% lg:to-transparent lg:to-45%" />
         </div>
         <div className="wrap relative py-14 sm:py-20 lg:py-24">
           <div className="max-w-xl">
