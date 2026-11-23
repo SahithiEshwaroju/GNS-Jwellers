@@ -32,7 +32,7 @@ begin
   if p_tables is null or jsonb_typeof(p_tables) <> 'object' then raise exception 'Invalid backup payload'; end if;
 
   foreach t in array del_order loop
-    if p_tables ? t then execute format('delete from public.%I', t); end if;
+    if p_tables ? t then execute format('delete from public.%I where true', t); end if;
   end loop;
 
   foreach t in array ins_order loop
@@ -62,7 +62,7 @@ begin
 
   if p_tables ? 'site_settings' and jsonb_typeof(p_tables -> 'site_settings') = 'array'
      and jsonb_array_length(p_tables -> 'site_settings') > 0 then
-    delete from public.site_settings;
+    delete from public.site_settings where true;
     select string_agg(quote_ident(k), ',') into cols
       from jsonb_object_keys(p_tables -> 'site_settings' -> 0) k
       where k <> 'updated_by' and k in (select column_name::text from information_schema.columns where table_schema = 'public' and table_name = 'site_settings');
@@ -83,15 +83,15 @@ create or replace function public.admin_reset_website()
 returns void language plpgsql security definer set search_path = '' as $$
 begin
   if not public.is_admin() then raise exception 'Admin access required' using errcode = '42501'; end if;
-  delete from public.order_items; delete from public.orders;
-  delete from public.enquiry_items; delete from public.enquiries;
-  delete from public.rate_updates; delete from public.site_images;
-  delete from public.product_images; delete from public.product_tags;
-  delete from public.product_views; delete from public.saved_products;
-  delete from public.products; delete from public.tags; delete from public.collections;
-  delete from public.subcategories; delete from public.categories; delete from public.media;
-  delete from public.site_settings; insert into public.site_settings (id) values (1);
-  delete from public.activity_log;
+  delete from public.order_items where true; delete from public.orders where true;
+  delete from public.enquiry_items where true; delete from public.enquiries where true;
+  delete from public.rate_updates where true; delete from public.site_images where true;
+  delete from public.product_images where true; delete from public.product_tags where true;
+  delete from public.product_views where true; delete from public.saved_products where true;
+  delete from public.products where true; delete from public.tags where true; delete from public.collections where true;
+  delete from public.subcategories where true; delete from public.categories where true; delete from public.media where true;
+  delete from public.site_settings where true; insert into public.site_settings (id) values (1);
+  delete from public.activity_log where true;
   alter sequence public.order_no_seq restart 1;
   alter sequence public.enquiry_ref_seq restart 1001;
 end $$;
