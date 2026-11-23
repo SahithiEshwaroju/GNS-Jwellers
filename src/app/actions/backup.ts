@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import type { Json } from "@/lib/supabase/database.types";
 import { assertAdmin } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-import { headObject, presignDownload, presignUpload, readObjectHead } from "@/lib/r2";
+import { deleteObjects, headObject, presignDownload, presignUpload, readObjectHead } from "@/lib/r2";
 import { r2Configured } from "@/lib/server-env";
 import { BACKUP_TABLES, TABLE_COLUMNS, type BackupTable, type MediaRef, type Row, type Tables } from "@/lib/backup/format";
 import { OBJECT_KEY_PATTERN, validateUpload, verifyUploadedObject, isAllowedType } from "@/lib/media-rules";
@@ -87,4 +87,21 @@ export async function restoreDatabase(tables: Tables): Promise<{ ok: true; count
   if (error) return { ok: false, error: `The database rejected the backup, so nothing was changed. (${error.message})` };
   revalidatePath("/", "layout");
   return { ok: true, counts: (data ?? {}) as Record<string, number> };
+}
+
+/** Deletes ALL website content and its photos. Admin accounts are kept. The browser downloads a backup first by default. */
+export async function resetWebsite(): Promise<{ ok: true; photosDeleted: number; photosFailed: boolean } | Fail> {
+  if (!(await admin())) return DENIED;
+  const supabase = await createClient();
+  const { data: media, error: readErr } = await supabase.from("media").select("object_key");
+  if (readErr) return { ok: false, error: "Could not read the photo list, so nothing was deleted." };
+  const keys = (media ?? []).map((m) => m.object_key).filter((k) => OBJECT_KEY_PATTERN.test(k));
+  const { error } = await supabase.rpc("admin_reset_website");
+  if (error) return { ok: false, error: `The database refused the reset, so nothing was deleted. (${error.message})` };
+  let photosFailed = false;
+  if (keys.length && r2Configured()) {
+    try { await deleteObjects(keys); } catch { photosFailed = true; }
+  }
+  revalidatePath("/", "layout");
+  return { ok: true, photosDeleted: photosFailed ? 0 : keys.length, photosFailed };
 }

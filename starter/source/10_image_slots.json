@@ -1,0 +1,66 @@
+{
+  "pages": [
+    {
+      "page": "home",
+      "slots": [
+        "hero",
+        "story",
+        "category:necklaces",
+        "category:earrings",
+        "category:rings",
+        "category:bangles",
+        "category:bracelets",
+        "category:pendants",
+        "category:mangalsutras",
+        "category:anklets",
+        "category:chains",
+        "category:nose-pins",
+        "category:silver-articles",
+        "collection:bridal",
+        "collection:everyday",
+        "collection:heritage",
+        "collection:contemporary",
+        "collection:festive",
+        "collection:kids"
+      ]
+    },
+    {
+      "page": "collections",
+      "slots": [
+        "collection:*  (shared with home banners)"
+      ]
+    },
+    {
+      "page": "custom",
+      "slots": [
+        "custom-hero",
+        "custom-ex1",
+        "custom-ex2",
+        "custom-ex3"
+      ]
+    },
+    {
+      "page": "about",
+      "slots": [
+        "about-shop"
+      ]
+    },
+    {
+      "page": "brand",
+      "slots": [
+        "logo",
+        "share-preview"
+      ]
+    }
+  ],
+  "recommended_sizes": {
+    "hero": "1920x900",
+    "story": "1200x800",
+    "category": "600x600",
+    "collection": "900x600",
+    "custom-hero": "1200x900",
+    "custom-ex": "800x800",
+    "about-shop": "1200x900",
+    "share-preview": "1200x630"
+  }
+}

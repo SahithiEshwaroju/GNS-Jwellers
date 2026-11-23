@@ -1,0 +1,147 @@
+{
+  "note": "prefix is used in auto product codes: GNS-<prefix>-0001. Order = home page order.",
+  "categories": [
+    {
+      "id": "necklaces",
+      "name": "Necklaces",
+      "code_prefix": "NK",
+      "subcategories": [
+        "Temple Necklaces",
+        "Diamond Necklaces",
+        "Chains",
+        "Chokers",
+        "Haarams"
+      ],
+      "sort": 1,
+      "show_on_home": true,
+      "image": null
+    },
+    {
+      "id": "earrings",
+      "name": "Earrings",
+      "code_prefix": "ER",
+      "subcategories": [
+        "Jhumkas",
+        "Drops",
+        "Studs",
+        "Chandbalis",
+        "Hoops"
+      ],
+      "sort": 2,
+      "show_on_home": true,
+      "image": null
+    },
+    {
+      "id": "rings",
+      "name": "Rings",
+      "code_prefix": "RG",
+      "subcategories": [
+        "Gold Rings",
+        "Diamond Rings",
+        "Men's Rings",
+        "Engagement Rings"
+      ],
+      "sort": 3,
+      "show_on_home": true,
+      "image": null
+    },
+    {
+      "id": "bangles",
+      "name": "Bangles",
+      "code_prefix": "BG",
+      "subcategories": [
+        "Bangles",
+        "Kadas"
+      ],
+      "sort": 4,
+      "show_on_home": true,
+      "image": null
+    },
+    {
+      "id": "bracelets",
+      "name": "Bracelets",
+      "code_prefix": "BR",
+      "subcategories": [
+        "Gold Bracelets",
+        "Silver Bracelets"
+      ],
+      "sort": 5,
+      "show_on_home": true,
+      "image": null
+    },
+    {
+      "id": "pendants",
+      "name": "Pendants",
+      "code_prefix": "PD",
+      "subcategories": [
+        "Gold Pendants",
+        "Diamond Pendants",
+        "Lockets"
+      ],
+      "sort": 6,
+      "show_on_home": true,
+      "image": null
+    },
+    {
+      "id": "mangalsutras",
+      "name": "Mangalsutras",
+      "code_prefix": "MS",
+      "subcategories": [
+        "Traditional",
+        "Modern"
+      ],
+      "sort": 7,
+      "show_on_home": true,
+      "image": null
+    },
+    {
+      "id": "anklets",
+      "name": "Anklets",
+      "code_prefix": "AK",
+      "subcategories": [
+        "Payals",
+        "Kids' Anklets"
+      ],
+      "sort": 8,
+      "show_on_home": true,
+      "image": null
+    },
+    {
+      "id": "chains",
+      "name": "Chains",
+      "code_prefix": "CH",
+      "subcategories": [
+        "Men's Chains",
+        "Women's Chains"
+      ],
+      "sort": 9,
+      "show_on_home": false,
+      "image": null
+    },
+    {
+      "id": "nose-pins",
+      "name": "Nose Pins",
+      "code_prefix": "NP",
+      "subcategories": [
+        "Studs",
+        "Rings"
+      ],
+      "sort": 10,
+      "show_on_home": false,
+      "image": null
+    },
+    {
+      "id": "silver-articles",
+      "name": "Silver Articles",
+      "code_prefix": "SA",
+      "subcategories": [
+        "Pooja Items",
+        "Gift Items",
+        "Coins"
+      ],
+      "sort": 11,
+      "show_on_home": false,
+      "image": null
+    }
+  ]
+}

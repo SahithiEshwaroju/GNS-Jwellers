@@ -1,0 +1,10 @@
+{
+  "rates": {
+    "gold_22k_per_10g": null,
+    "silver_per_kg": null,
+    "gst_percent": 3,
+    "updated_at": null,
+    "updated_by": null
+  },
+  "note": "Leave rates empty — the admin must enter today's real rates before prices show. GST applies to metal + making + stone."
+}

@@ -1,0 +1,10 @@
+{
+  "category_display": {
+    "style": "square",
+    "limit": 6,
+    "mobile_columns": 3
+  },
+  "featured_products_count": 4,
+  "new_arrivals_count": 4,
+  "home_collections_count": 2
+}

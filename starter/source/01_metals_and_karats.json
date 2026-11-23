@@ -1,0 +1,47 @@
+{
+  "metals": [
+    {
+      "id": "gold",
+      "name": "Gold",
+      "priced_by": "22K rate per 10 g",
+      "purities": [
+        "18K",
+        "22K",
+        "24K"
+      ]
+    },
+    {
+      "id": "silver",
+      "name": "Silver",
+      "priced_by": "rate per 1 kg (used as entered, no purity adjustment)",
+      "purities": [
+        "925",
+        "999"
+      ]
+    }
+  ],
+  "karats": [
+    {
+      "id": "24K",
+      "label": "24 Karat",
+      "fineness": 999,
+      "ratio_to_22k": "24/22",
+      "sort": 1
+    },
+    {
+      "id": "22K",
+      "label": "22 Karat",
+      "fineness": 916,
+      "ratio_to_22k": "1",
+      "sort": 2,
+      "is_base_rate": true
+    },
+    {
+      "id": "18K",
+      "label": "18 Karat",
+      "fineness": 750,
+      "ratio_to_22k": "18/22",
+      "sort": 3
+    }
+  ]
+}

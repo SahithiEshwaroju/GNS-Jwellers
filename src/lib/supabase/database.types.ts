@@ -131,6 +131,7 @@ export type Database = {
         Returns: { code: string; id: string; removed_keys: string[] }[];
       };
       admin_set_product_status: { Args: { p_id: string; p_status: string }; Returns: undefined };
+      admin_reset_website: { Args: never; Returns: undefined };
       admin_restore_backup: { Args: { p_tables: Json }; Returns: Json };
       admin_storage_stats: { Args: never; Returns: Json };
       admin_stale_media: { Args: never; Returns: { id: string; object_key: string }[] };

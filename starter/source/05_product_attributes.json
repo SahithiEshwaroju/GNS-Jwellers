@@ -1,0 +1,126 @@
+{
+  "styles": [
+    "Temple",
+    "Traditional",
+    "Contemporary",
+    "Classic",
+    "Floral",
+    "Antique",
+    "Minimal",
+    "Kundan"
+  ],
+  "occasions": [
+    "Wedding",
+    "Engagement",
+    "Festive",
+    "Daily Wear",
+    "Party",
+    "Office",
+    "Gifting"
+  ],
+  "genders": [
+    "Women",
+    "Men",
+    "Unisex",
+    "Kids"
+  ],
+  "sizes": {
+    "rings": [
+      "8",
+      "10",
+      "12",
+      "14",
+      "16",
+      "18",
+      "20",
+      "22"
+    ],
+    "bangles": [
+      "2.2",
+      "2.4",
+      "2.6",
+      "2.8",
+      "2.10"
+    ],
+    "necklaces": [
+      "16 in",
+      "18 in",
+      "20 in",
+      "22 in",
+      "24 in"
+    ],
+    "chains": [
+      "16 in",
+      "18 in",
+      "20 in",
+      "22 in",
+      "24 in"
+    ],
+    "mangalsutras": [
+      "18 in",
+      "20 in",
+      "24 in"
+    ],
+    "bracelets": [
+      "6.5 in",
+      "7 in",
+      "7.5 in",
+      "8 in"
+    ],
+    "anklets": [
+      "9 in",
+      "10 in",
+      "11 in"
+    ]
+  },
+  "price_filter_buckets": [
+    {
+      "id": "b1",
+      "label": "Under ₹25,000",
+      "min": 0,
+      "max": 25000
+    },
+    {
+      "id": "b2",
+      "label": "₹25,000 – ₹50,000",
+      "min": 25000,
+      "max": 50000
+    },
+    {
+      "id": "b3",
+      "label": "₹50,000 – ₹1,00,000",
+      "min": 50000,
+      "max": 100000
+    },
+    {
+      "id": "b4",
+      "label": "₹1,00,000 – ₹2,00,000",
+      "min": 100000,
+      "max": 200000
+    },
+    {
+      "id": "b5",
+      "label": "Above ₹2,00,000",
+      "min": 200000,
+      "max": null
+    }
+  ],
+  "sort_options": [
+    {
+      "id": "latest",
+      "label": "Latest"
+    },
+    {
+      "id": "priceAsc",
+      "label": "Price: Low to High"
+    },
+    {
+      "id": "priceDesc",
+      "label": "Price: High to Low"
+    },
+    {
+      "id": "updated",
+      "label": "Recently Updated"
+    }
+  ]
+}
