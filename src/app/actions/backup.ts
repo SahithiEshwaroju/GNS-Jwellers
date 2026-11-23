@@ -27,7 +27,8 @@ export async function backupTablePage(table: string, offset: number): Promise<{ 
   const t = table as BackupTable;
   const supabase = await createClient();
   let q = supabase.from(t).select(TABLE_COLUMNS[t] ?? "*");
-  q = t === "product_tags" ? q.order("product_id").order("tag_id") : q.order("id");
+  // Stable paging needs a deterministic order: product_tags and site_images have no `id` column.
+  q = t === "product_tags" ? q.order("product_id").order("tag_id") : t === "site_images" ? q.order("slot") : q.order("id");
   const { data, error } = await q.range(offset, offset + PAGE - 1);
   if (error) return { ok: false, error: `Could not read ${t} (${error.code ?? "error"}).` };
   const rows = (data ?? []) as unknown as Row[];
