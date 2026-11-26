@@ -81,3 +81,38 @@ describe("siteSettingsSchema", () => {
     expect(siteSettingsSchema.safeParse({ ...base, instagram_url: "javascript:alert(1)" }).success).toBe(false);
   });
 });
+
+import { cleanNumber } from "@/lib/validation";
+describe("cleanNumber", () => {
+  it("accepts typed units and separators", () => {
+    expect(cleanNumber("27Gm")).toBe(27);
+    expect(cleanNumber(" 2.5 g ")).toBe(2.5);
+    expect(cleanNumber("1,25,000")).toBe(125000);
+    expect(cleanNumber("₹500")).toBe(500);
+    expect(cleanNumber("12%")).toBe(12);
+    expect(cleanNumber("")).toBeUndefined();
+  });
+  it("still rejects words and mixed junk", () => {
+    expect(cleanNumber("abc")).toBeNaN();
+    expect(cleanNumber("27 and half")).toBeNaN();
+    expect(cleanNumber("-5")).toBeNaN();
+  });
+});
+
+describe("productSchema numeric fields", () => {
+  const base = { name: "Kada", category_id: "11111111-1111-4111-8111-111111111111", metal: "gold", karat: "22", making_type: "fixed", status: "draft" } as const;
+  it("accepts weight typed with units", () => {
+    const r = productSchema.safeParse({ ...base, weight_g: "27Gm", making_value: "", stone_value: "" });
+    expect(r.success).toBe(true);
+    if (r.success) expect([r.data.weight_g, r.data.making_value, r.data.stone_value]).toEqual([27, 0, 0]);
+  });
+  it("explains which field is wrong", () => {
+    const r = productSchema.safeParse({ ...base, weight_g: "heavy", making_value: "lots" });
+    expect(r.success).toBe(false);
+    if (!r.success) {
+      const msgs = r.error.issues.map((i) => i.message).join(" | ");
+      expect(msgs).toMatch(/Weight: enter a number/);
+      expect(msgs).toMatch(/Making charges: enter a number/);
+    }
+  });
+});

@@ -45,6 +45,16 @@ export type EnquiryInput = z.input<typeof enquirySchema>;
 
 const money = z.coerce.number().min(0, "Must be 0 or more").max(1e8);
 
+/** Forgiving number parsing for typed fields: "27Gm", "1,25,000", "₹ 500", "2.5 g" -> numbers. Anything else stays NaN. */
+export function cleanNumber(v: unknown): unknown {
+  if (typeof v !== "string") return v;
+  const t = v.trim().replace(/[,₹\s]/g, "").replace(/^rs\.?/i, "").replace(/(grams?|gms?|g)$/i, "").replace(/%$/, "");
+  if (t === "") return undefined;
+  return /^\d*\.?\d+$|^\d+\.$/.test(t) ? Number(t) : NaN;
+}
+const moneyField = (label: string) =>
+  z.preprocess((v) => cleanNumber(v) ?? 0, z.number({ error: `${label}: enter a number (for example 1500)` }).min(0, `${label} must be 0 or more`).max(1e8));
+
 export const specSchema = z.object({ label: z.string().trim().min(1).max(40), value: z.string().trim().min(1).max(120) });
 
 export const productSchema = z
@@ -59,10 +69,10 @@ export const productSchema = z
     metal: z.enum(["gold", "silver"]),
     karat: z.coerce.number().int().optional(),
     silver_purity: optText(20),
-    weight_g: z.coerce.number().positive("Enter the weight in grams").max(9999),
+    weight_g: z.preprocess(cleanNumber, z.number({ error: "Weight: enter a number in grams (for example 27)" }).positive("Enter the weight in grams").max(9999)),
     making_type: z.enum(["fixed", "percent", "per_gram"]),
-    making_value: money,
-    stone_value: money.default(0),
+    making_value: moneyField("Making charges"),
+    stone_value: moneyField("Stone value"),
     stones_note: optText(200),
     style: optText(40),
     occasion: optText(40),
